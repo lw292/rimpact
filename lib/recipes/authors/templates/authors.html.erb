@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Collaboration Network Analysis for <%= who %></title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<style>
+div#main {
+	margin-left: 9px;
+}
+div.containers {
+	margin-bottom: 32px;
+}
+svg {
+	border: 1px solid #ccc;
+}
+svg#fdg line.link {
+	stroke: black;
+}
+svg#fdg text {
+	font-weight: 200;
+	display: none;
+}
+.navbar {
+	border-radius: 0;
+	border: none;
+}
+label {
+	font-weight: normal;
+}
+</style>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Collaboration Network Analysis for <%= who %></a>
+  </div>
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="../authors"><span class="glyphicon glyphicon-user"></span> Authors</a></li>
+      <li><a href="../geo"><span class="glyphicon glyphicon-map-marker"></span> Geographical</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="main">
+	
+	<div id="fdg_container" class="containers">
+	  <h4 id="fdg_title">Force-Directed Graph for &nbsp;
+	    <select id="years">
+	      <% all_years.each do |year| %>
+	        <% if years.include? year %>
+	          <option value="<%= year %>"><%= year %></option>
+	        <% else %>
+	          <option value="<%= year %>" disabled><%= year %> (data set too big to display)</option>
+	        <% end %>
+	      <% end %>
+	    </select>
+	  </h4>
+	  
+  	<div class="controls">
+  		<input type="checkbox" id="author_links" checked> <label>Show Links</label>
+  		<input type="checkbox" id="author_names"> <label>Show Names</label>
+  	</div>
+	</div>
+
+</div>
+<script>
+$( document ).ready(function() {
+	$("input#author_names").change(function(){
+		if ($(this).prop("checked") == true) {
+			$("svg#fdg text").show();
+		} else {
+			$("svg#fdg text").hide();
+		}
+	});
+	$("input#author_links").change(function(){
+		if ($(this).prop("checked") == true) {
+			$("svg#fdg line.link").show();
+		} else {
+			$("svg#fdg line.link").hide();
+		}
+	});
+	$("select#years").change(function(){
+		$("svg#fdg").remove();
+		dataset = $(this).val();
+		drawGraph(dataset);
+	});
+	drawGraph(<%= years.first %>);
+});
+	
+function drawGraph(dataset) {
+	var width = 960,
+	    height = 660;
+
+	var color = d3.scale.category20();
+
+	var force = d3.layout.force()
+		.gravity(.4)
+	    .charge(-120)
+	    .linkDistance(50)
+	    .size([width, height]);
+
+	var svg = d3.select("div#fdg_container").append("svg")
+	    .attr("width", width)
+	    .attr("height", height)
+	    .attr("id", "fdg");
+	
+	d3.json(dataset+ ".json", function(error, graph) {
+		force
+			.nodes(graph.nodes)
+			.links(graph.links)
+			.start();
+
+		var link = svg.selectAll(".link")
+			.data(graph.links)
+			.enter().append("line")
+			.attr("class", "link")
+			.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+		var node = svg.selectAll(".node")
+			.data(graph.nodes)
+			.enter().append("circle")
+			.attr("class", "node")
+			.attr("r", function(d) { return +d.group*5; })
+			.style("fill", function(d) { return color(d.group); })
+			.call(force.drag);
+
+		node.append("title")
+			.text(function(d) { return d.name + " (" + d.group + ")"; });
+
+		force.on("tick", function() {
+			link.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+
+			node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) { return d.y; });
+		});
+
+		var texts = svg.selectAll("text.aname")
+			.data(graph.nodes)
+			.enter().append("text")
+			.attr("class", "aname")
+			.attr("fill", "black")
+			.attr("font-size", function(d) { return +d.group*3; })
+			.text(function(d) {  return d.name + " (" + d.group + ")";  });
+
+		force.on("tick", function() {
+			link.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+
+			node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) { return d.y; });
+
+			texts.attr("transform", function(d) {
+				return "translate(" + d.x + "," + d.y + ")";
+			});
+		});
+	});
+	if ($("input#author_names").prop("checked") == true) {
+	  $("input#author_names").click();
+	}
+}
+</script>
+</body>
+</html>

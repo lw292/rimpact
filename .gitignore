@@ -1,0 +1,5 @@
+Gemfile
+Gemfile.lock
+.DS_Store
+test/*
+*.gem

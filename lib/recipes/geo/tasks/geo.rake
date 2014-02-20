@@ -1,0 +1,362 @@
+namespace :rimpact do
+  namespace :geo do
+    desc "Creates graphs of geographical collaboration networks."
+    task :create => :environment do
+
+      require 'fileutils'
+      require 'csv'
+      require 'erb'
+      require 'io/console'
+
+      current_dir = File.dirname(File.expand_path(__FILE__))
+      Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
+      Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
+
+      # Getting necessary user input
+      STDOUT.print "Where is the data file? [public/data/data.txt]:"
+      file = STDIN.gets.chomp
+      file = 'public/data/data.txt' if file.empty?
+      STDOUT.print "Where to save the generated files? [public/results/jsmith]:"
+      uniqname = STDIN.gets.chomp
+      uniqname = 'public/results/jsmith' if uniqname.empty?
+      if !File.directory?(uniqname)
+        Dir.mkdir(uniqname)
+      end
+      if !File.directory?(uniqname+"/geo")
+        Dir.mkdir(uniqname+"/geo")
+      end
+      STDOUT.print "Whom is this data for? [John Smith]:"
+      who = STDIN.gets.chomp
+      who = 'John Smith' if who.empty?
+    
+      # Getting and cleaning the raw data file.
+      body = File.open(file, "r:bom|utf-8").read()
+      File.open(file, 'w') do |newfile| 
+        newfile << body
+      end
+    
+      # Parse the raw data file into reference objects
+      parser = RefParsers::RISParser.new
+      references = parser.open(file)
+    
+      # Initialize data containers
+      areas = {
+        "countries" => {
+          "all" => []
+        },
+        "states" => {
+          "all" => []
+        }
+      }
+      points = {
+        "cities" => {
+          "all" => [],
+          "international" => [],
+          "domestic" => []
+        }
+      }
+      connections = {
+        "links" => {
+          "all" => [],
+          "domestic" => []
+        },
+        "spokes" => {
+          "all" => [],
+          "domestic" => []
+        }
+      }
+      years = []
+    
+      # Counters for displaying the progress bar and the output message
+      counters = {
+        "references" => {
+          "total" => 0,
+          "skipped" => 0
+        },
+        "addresses" => {
+          "total" => 0,
+          "parsed" => 0,
+          "cities" => 0,
+          "regions" => 0,
+          "countries" => 0
+        }
+      }
+    
+      # Loop through the references
+      references.each do |reference|
+        # Get the year
+        year = reference.year
+        if !years.include? year
+          years << year
+        end
+        # Get the addresses
+        addresses = reference.addresses
+        # If the number of addresses is larger than ...
+        if addresses.size < 2000
+          # Initialize containers for this individual paper
+          countries = []
+          states = []
+          cities = []
+        
+          # Loop through the addresses
+          addresses.each do |address|
+            counters["addresses"]["total"] += 1
+            place = address.place
+            if !place.nil?
+              counters["addresses"]["parsed"] += 1
+              # If it is a city
+              if place.is_a?(Gnlookup::City)
+                counters["addresses"]["cities"] += 1
+                if !cities.include? place
+                  cities << place
+                  points["cities"]["all"] << place
+                  if place.country.name != "United States"
+                     points["cities"]["international"] << place
+                  else
+                     points["cities"]["domestic"] << place
+                  end
+                  if place.country.name == "United States"
+                    if !states.include? place.region
+                      states << place.region
+                      areas["states"]["all"] << place.region
+                    end
+                  end
+                  if !countries.include? place.country
+                    countries << place.country
+                    areas["countries"]["all"] << place.country
+                  end
+                end
+              # If it is a region
+              elsif place.is_a?(Gnlookup::Region)
+                counters["addresses"]["regions"] += 1
+                if place.country == "United States"
+                  if !states.include? place
+                    states << place
+                    areas["states"]["all"] << place
+                  end
+                end
+                if !countries.include? place.country
+                  countries << place.country
+                  areas["countries"]["all"] << place.country
+                end
+              elsif place.is_a?(Gnlookup::Country)
+                counters["addresses"]["countries"] += 1
+                if !countries.include? place
+                  countries << place
+                  areas["countries"]["all"] << place
+                end
+              end
+            end
+          end
+              
+          # Generating link data for this reference
+          cities.combination(2).to_a.each do |pair|
+            connections["links"]["all"] << pair.sort_by{|p| p.id}
+          end
+          cities.reject{|c| c.country.name != "United States"}.combination(2).to_a.each do |pair|
+            connections["links"]["domestic"] << pair.sort_by{|p| p.id}
+          end
+        else
+          counters["references"]["skipped"] += 1
+        end
+      
+        # Counting records and display progress
+        counters["references"]["total"] += 1
+        if counters["references"]["total"]%5 == 0
+          print "#"
+          $stdout.flush
+        end
+      end
+    
+      # Sort the years for display on the template page
+      years.sort!
+    
+      # Getting the center city for the spoke data
+      center = points["cities"]["all"].group_by {|x| x}.map {|k,v| [k,v.count]}[0][0]
+    
+      # Generating spoke data
+      if !center.nil?
+        connections["links"]["all"].each do |link|
+          if link[0].name == center.name || link[1].name == center.name
+            connections["spokes"]["all"] << link
+          end
+        end
+        if center.country.name == "United States"
+          connections["links"]["domestic"].each do |link|
+            if link[0].name == center.name || link[1].name == center.name
+              connections["spokes"]["domestic"] << link
+            end
+          end
+        end
+      end
+    
+      # For counts for display on the template page
+      counts = {
+        "references" => counters["references"]["total"],
+        "domestic_city" => points["cities"]["domestic"].group_by{|x| x}.map{|k, v| v.count}.size,
+        "world_city" => points["cities"]["all"].group_by{|x| x}.map{|k, v| v.count}.size,
+        "domestic_state" => areas["states"]["all"].group_by{|x| x}.map{|k, v| v.count}.size,
+        "world_country" => areas["countries"]["all"].group_by{|x| x}.map{|k, v| v.count}.size
+      }
+    
+      # Writing files
+      areas.each do |ka,va|
+        va.each do |kb,vb|
+          CSV.open(uniqname+"/geo/"+ka+"_"+kb+".csv", 'w') do |csv|
+            csv << ["name", "count"]
+            Hash[vb.group_by {|x| x}.map {|k,v| [k,v.count]}].each do |l, lcount|
+              csv << [l.name, lcount]
+            end
+          end
+        end
+      end
+      points.each do |ka,va|
+        va.each do |kb,vb|
+          CSV.open(uniqname+"/geo/"+ka+"_"+kb+".csv", 'w') do |csv|
+            csv << ["name", "region", "country", "lat", "lng", "count"]
+            Hash[vb.group_by {|x| x}.map {|k,v| [k,v.count]}].each do |l, lcount|
+              csv << [l.name, l.region.name, l.country.name, l.lat, l.lng, lcount]
+            end
+          end
+        end
+      end
+      connections.each do |ka, va|
+        va.each do |kb, vb|
+          CSV.open(uniqname+"/geo/"+ka+"_"+kb+".csv", 'w') do |csv|
+            csv << ["name1", "region1", "country1", "lat1", "lng1", "name2", "region2", "country2", "lat2", "lng2", "count"]
+            Hash[vb.group_by {|x| x}.map {|k,v| [k,v.count]}].each do |l, lcount|
+              csv << [l[0].name, l[0].region.name, l[0].country.name, l[0].lat, l[0].lng, l[1].name, l[1].region.name, l[1].country.name, l[1].lat, l[1].lng, lcount]
+            end
+          end
+        end
+      end
+    
+      # Copying files ...
+      FileUtils.cp("public/external/geo/world.json", uniqname+"/geo/world.json")
+      FileUtils.cp("public/external/geo/us.json", uniqname+"/geo/us.json")
+            
+      # Generating html template
+      template = ERB.new(File.read(current_dir+"/../templates/geo.html.erb"))
+      File.open(uniqname+"/geo/index.html", "w+") do |f|
+        f << template.result(binding)
+      end
+    
+      # Output message
+      puts "\n" + counters["references"]["skipped"].to_s + " references were skipped because there are too many addresses."
+      puts "There were " + counters["addresses"]['total'].to_s + " addresses in the unskipped references, among which " + counters["addresses"]['parsed'].to_s + " were parsed."
+      puts "Among the parsed addresses, " + counters["addresses"]['cities'].to_s + " were parsed to the city level, " + counters["addresses"]['regions'].to_s + " were parsed to the region level, and " + counters["addresses"]['countries'].to_s + " were parsed to the country level."
+      
+    end
+  
+    desc "Checks if ambiguous addresses exist in the RIS data."
+    task :check => :environment do
+    
+      require 'csv'
+      require 'io/console'
+
+      current_dir = File.dirname(File.expand_path(__FILE__))
+      Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
+      Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
+    
+      # Getting necessary user input
+      STDOUT.print "Where is the data file? [public/data/data.txt]:"
+      file = STDIN.gets.chomp
+      file = 'public/data/data.txt' if file.empty?
+      STDOUT.print "Where to save the generated files? [public/results/jsmith]:"
+      uniqname = STDIN.gets.chomp
+      uniqname = 'public/results/jsmith' if uniqname.empty?
+      if !File.directory?(uniqname)
+        Dir.mkdir(uniqname)
+      end
+      if !File.directory?(uniqname+"/geo")
+        Dir.mkdir(uniqname+"/geo")
+      end
+    
+      # Getting the raw data file.
+      body = File.open(file, "r:bom|utf-8").read()
+      File.open(file, 'w') do |newfile| 
+        newfile << body
+      end
+    
+      # Parse the raw data file into reference objects
+      parser = RefParsers::RISParser.new
+      references = parser.open(file)
+    
+      count = 0
+    
+      buckets = {
+        "unparsables" => [],
+        "ambiguous_cities" => [],
+        "ambiguous_regions" => []
+      }
+    
+      references.each do |reference|
+        addresses = reference.addresses
+        addresses.each do |address|
+          ambiguity = address.ambiguity
+          if ambiguity.nil?
+            buckets["unparsables"] << [address.string]
+          elsif ambiguity.is_a?(Gnlookup::City)
+            buckets["ambiguous_cities"] << [ambiguity.name, ambiguity.region.name, ambiguity.country.name, address.string]
+          elsif ambiguity.is_a?(Gnlookup::Region)
+            buckets["ambiguous_regions"] << [ambiguity.name, ambiguity.country.name, address.string]
+          end
+        end
+
+        count += 1
+        if count%5 == 0
+          print "#"
+          $stdout.flush
+        end
+      end
+
+      buckets.each do |k,v|
+        File.open(uniqname+"/geo/"+k+".csv", "w+") do |f|
+          v.each do |item|
+            f << item.join(",") + "\n"
+          end
+        end
+      end
+    
+    end
+
+    desc "Adds disambiguated cities to your preferred cities list."
+    task :preferred => :environment do
+      require 'csv'
+      require 'io/console'
+
+      current_dir = File.dirname(File.expand_path(__FILE__))
+      Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
+      Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
+    
+      # Getting necessary user input
+      STDOUT.print "Where are the source files? [public/results/jsmith]:"
+      uniqname = STDIN.gets.chomp
+      uniqname = 'public/results/jsmith' if uniqname.empty?
+      if !File.directory?(uniqname)
+        Dir.mkdir(uniqname)
+      end
+      if !File.directory?(uniqname+"/geo")
+        Dir.mkdir(uniqname+"/geo")
+      end
+    
+      found = []
+      CSV.foreach(uniqname+"/geo/ambiguous_cities.csv") do |row|
+        cities = Gnlookup::City.where(:name => row[0])
+        cities.each do |city|
+          if city.region.iso == row[1].strip
+            found << city
+            break
+          end
+        end
+      end
+      CSV.open("lib/impact/preferred/cities.csv", 'a') do |csv|
+        found.each do |city|
+          if !city.preferred?
+            csv << [city.geoname_id, city.name, city.region.iso]
+          end
+        end
+      end
+    end
+  end
+end

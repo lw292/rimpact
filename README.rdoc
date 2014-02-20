@@ -1,0 +1,111 @@
+= Rimpact
+
+== Description
+
+Rimpact allows your Ruby on Rails application to parse bibliographic data in {RIS format}[http://en.wikipedia.org/wiki/RIS_(file_format)] and generate {d3.js}[http://d3js.org/] based visualization graphs.
+
+== Configuring your Rails application
+
+Take the following steps to configure your Rails application to use Rimpact.
+
+Add the following lines to the +Gemfile+:
+  gem 'gnlookup', :git => 'https://github.com/lw292/gnlookup.git' # Rimpact's geo recipe depends upon gnlookup. More information below.
+  gem 'rimpact', :git => 'https://github.com/lw292/rimpact.git'
+
+Then use the +bundle+ command to install the gems and their dependencies:
+  bundle install
+
+Then you will need to create some required files and directories in your application. You can do so by running:
+  rake rimpact:setup
+
+This will create the following empty directories and files (if they do not already exist):
+  public/data
+  public/external
+  public/results
+  public/preferred
+  public/preferred/cities.csv
+  public/preferred/regions.csv
+
+== Getting RIS data from Scopus
+
+Rimpact has been tested to work with the RIS data exported from Scopus. Data from other sources will be tested in the future. Here is how to get RIS data from Scopus:
+
+1. Go to the {Scopus}[http://www.scopus.com/] site. If you do not have access, please contact your librarian.
+2. Run your search to get a result set.
+3. Select the references you would like to export.
+4. Click on the "Export" icon.
+5. In the popup, choose RIS format.
+6. In the dropdown, choose "Specify fields to be exported". Then select fields. Normally you would choose all fields under "Citation information" and "Abstract and Keywords" as well as the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for Rimpact to work.
+7. Click "Export", and the data will be downloaded to your computer.
+8. To make things easier, you can copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like this:
+  public/data/data.txt
+
+== Recipes
+
+You can now use Rimpact to generate visualization graphs from the RIS data. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
+  rake -T
+
+You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add it to Rimpact.
+
+=== The authors recipe
+
+The +authors+ recipe generates {force-directed graphs}[http://en.wikipedia.org/wiki/Force-directed_graph_drawing] of author collaboration networks. To do that, run:
+  rake rimpact:authors:create
+
+This will parse your RIS data file, extract the author fields, calculate the number of collaborators and publications for each author, and present the results in a force-directed graph.
+
+==== Ambiguous author names
+
+You should disambiguate author names before running this task. Rimpact assumes that authors by exactly the same name in your data are the same author and names that are not exactly the same belong to different authors.
+
+=== The geo recipe
+
+The +geo+ recipe generates graphs of geographical collaboration networks.
+
+==== Setting up Gnlookup
+
+The +geo+ recipe relies on a database from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that function. Please follow {this guide}[https://github.com/lw292/gnlookup] to set it up for your Rails application.
+
+==== Getting map data
+
+In order for the browser to display maps, you will need map shape data for the United States and the world in {geojson format}[http://en.wikipedia.org/wiki/GeoJSON]. Please follow {this guide}[http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata] to generate these data files and place them in the +public/external+ directory. You should end up having these files:
+  public/external/geo/us.json
+  public/external/geo/world.json
+
+==== Using the geo recipe
+
+To create a graph of geographical collaboration networks from the RIS data, run:
+  rake rimpact:geo:create
+
+This will parse your RIS data file, extract the affiliation address fields, and for each address, and if an address can be identified, try to determine the latitude and longitude of the address at city level.
+
+==== Ambiguous US cities
+
+Address ambiguity occurs if there are missing parts of the address in the data. For example, "New Haven, United States" could be any one of these:
+  New Haven, Connecticut, United States
+  New Haven, Indiana, United States
+  New Haven, Michigan, United States
+
+Such ambiguity is more likely to exist for United States addresses because a lot of authors omit state information in their addresses.
+
+Rimpact will simply skip those addresses and will NOT try to make a disambiguation decision automatically. However, you can get a list of such skipped US addresses by running:
+  rake rimpact:geo:check
+
+This will generate a number of files in your results directory including the "ambiguous_cities.csv" file. You will need to manually disambiguate these cities. To do that, replace each line with the correct city and state information in this format:
+  New Haven, CT
+  Philadelphia, PA
+  Anytown, AL
+
+You only need to include the city and state (2-letter code uppercase), and you only need to include each city once.
+
+After that, you can add these cities to your "preferred cities" list:
+  rake rimpact:geo:preferred
+
+This will help Rimpact make a decision next time when such ambiguity occurs. For example, next time when it sees "New Haven, United States", it will know that "New Haven, CT" is your preferred city among all the "New Havens" in the United States, and therefore it will map that address to "New Haven, Connecticut, United States".
+
+After you update your preferred cities list, you should run this task again to update your graph:
+  rake rimpact:geo:create
+
+== License
+
+This project rocks and uses MIT-LICENSE.
