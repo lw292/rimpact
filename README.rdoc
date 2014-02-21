@@ -19,7 +19,7 @@ At this point, if you are running Rails 4.x, you will need this line too in the 
 Then use the +bundle+ command to install the gems and their dependencies:
   bundle install
 
-Then you will need to create some required files and directories in your application. You can do so by running:
+You will need to create some required files and directories in your application. You can do so by running:
   rake rimpact:setup
 
 This will create the following empty directories and files (if they do not already exist):
@@ -51,14 +51,20 @@ Rimpact has been tested to work with the RIS data exported from Scopus. Data fro
 You can now use Rimpact to generate visualization graphs from the RIS data. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
   rake -T
 
-You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add it to Rimpact.
+You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
 
 ==== The authors recipe
 
 The +authors+ recipe generates {force-directed graphs}[http://en.wikipedia.org/wiki/Force-directed_graph_drawing] of author collaboration networks. To do that, run:
   rake rimpact:authors:create
 
-This will parse your RIS data file, extract the author fields, calculate the number of collaborators and publications for each author, and present the results in a force-directed graph.
+This will parse your RIS data file, extract the author fields, calculate the number of collaborators and publications for each author, and generate the html, JavaScript and data required to display the force-directed graph.
+
+All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
+  public/results/your_project_name/authors
+
+The directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file. If you are using your Rails application to view it, start your Rails server, and point your browser to:
+  http://your_rails_server_root_url/results/your_project_name/authors/index.html
 
 ===== Ambiguous author names
 
