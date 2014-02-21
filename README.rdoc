@@ -10,8 +10,11 @@ Rimpact allows your Ruby on Rails application to parse bibliographic data in {RI
 Take the following steps to configure your Rails application to use Rimpact.
 
 Add the following lines to the +Gemfile+:
-  gem 'gnlookup', :git => 'https://github.com/lw292/gnlookup.git' # Rimpact's geo recipe depends upon gnlookup. More information below.
+  gem 'gnlookup', :git => 'https://github.com/lw292/gnlookup.git'
   gem 'rimpact', :git => 'https://github.com/lw292/rimpact.git'
+
+At this point, if you are running Rails 4.x, you will need this line too in the +Gemfile+:
+  gem 'protected_attributes'
 
 Then use the +bundle+ command to install the gems and their dependencies:
   bundle install
@@ -57,7 +60,7 @@ The +authors+ recipe generates {force-directed graphs}[http://en.wikipedia.org/w
 
 This will parse your RIS data file, extract the author fields, calculate the number of collaborators and publications for each author, and present the results in a force-directed graph.
 
-===== Ambiguous author names
+====== Ambiguous author names
 
 You should disambiguate author names before running this task. Rimpact assumes that authors by exactly the same name in your data are the same author and names that are not exactly the same belong to different authors.
 
@@ -65,24 +68,24 @@ You should disambiguate author names before running this task. Rimpact assumes t
 
 The +geo+ recipe generates graphs of geographical collaboration networks.
 
-===== Setting up Gnlookup
+====== Setting up Gnlookup
 
 The +geo+ recipe relies on a database from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that function. Please follow {this guide}[https://github.com/lw292/gnlookup] to set it up for your Rails application.
 
-===== Getting map data
+====== Getting map data
 
 In order for the browser to display maps, you will need map shape data for the United States and the world in {geojson format}[http://en.wikipedia.org/wiki/GeoJSON]. Please follow {this guide}[http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata] to generate these data files and place them in the +public/external+ directory. You should end up having these files:
   public/external/geo/us.json
   public/external/geo/world.json
 
-===== Using the geo recipe
+====== Using the geo recipe
 
 To create a graph of geographical collaboration networks from the RIS data, run:
   rake rimpact:geo:create
 
 This will parse your RIS data file, extract the affiliation address fields, and for each address, and if an address can be identified, try to determine the latitude and longitude of the address at city level.
 
-===== Ambiguous US cities
+====== Ambiguous US cities
 
 Address ambiguity occurs if there are missing parts of the address in the data. For example, "New Haven, United States" could be any one of these:
   New Haven, Connecticut, United States
