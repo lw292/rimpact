@@ -63,7 +63,7 @@ This will parse your RIS data file, extract the author fields, calculate the num
 All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
   public/results/your_project_name/authors
 
-The directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file. If you are using your Rails application to view it, start your Rails server, and point your browser to:
+The directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, start your Rails server, and point your browser to:
   http://your_rails_server_root_url/results/your_project_name/authors/index.html
 
 ===== Ambiguous author names
@@ -89,7 +89,13 @@ In order for the browser to display maps, you will need map shape data for the U
 To create a graph of geographical collaboration networks from the RIS data, run:
   rake rimpact:geo:create
 
-This will parse your RIS data file, extract the affiliation address fields, and for each address, and if an address can be identified, try to determine the latitude and longitude of the address at city level.
+This will parse your RIS data file, extract the affiliation address fields, and for each address, if an address can be identified, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
+
+All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
+  public/results/your_project_name/geo
+
+Again the directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, make sure your Rails server is running, and point your browser to:
+  http://your_rails_server_root_url/results/your_project_name/geo/index.html
 
 ===== Ambiguous US cities
 
