@@ -58,6 +58,22 @@ class Address
     return self.lone_regions.reject{|r| !@@preferred_regions.include?(r)}
   end
   
+  # Zipcodes
+  # Returns an array of zipcode objects
+  def zipcodes
+    zipcodes = []
+    pieces = self.string.split(",")
+    pieces.each do |piece|
+      value = piece.strip.chomp(".")
+      us_address_pattern = /(^[A-Z]{2}\s\d{5}$)|(^[A-Z]{2}\s\d{5}-\d{4}$)/
+      if !(us_address_pattern =~ value).nil? # If this matches a US address pattern
+        zipcode = value.split(" ")[1].split("-")[0]
+        zipcodes << Gnlookup::Zipcode.where("zipcode = ?", zipcode)
+      end
+    end
+    return zipcodes.flatten
+  end
+  
   # Countries
   # Returns an array of country objects
   def countries
@@ -148,6 +164,9 @@ class Address
     # City-region-country combos: just return it
     if !self.city_region_country_combos.blank?
       return self.city_region_country_combos[0]
+    # If a US zipcode can be identified, just return it
+    elsif !self.zipcodes.blank?
+      return self.zipcodes[0]
     # City_region combo: just return it.
     # Pretend that it is not ambiguous while there might be a slight chance that it is, but it is not worth our time to check.
     elsif !self.lone_city_region_combos.blank?
@@ -190,6 +209,9 @@ class Address
   def ambiguity
     # City-region-country combos: not ambiguous
     if !self.city_region_country_combos.blank?
+      return false
+    # US zipcode: not ambiguous
+    elsif !self.zipcodes.blank?
       return false
     # City_region combo: pretend that it is not ambiguous
     elsif !self.lone_city_region_combos.blank?

@@ -126,6 +126,29 @@ namespace :rimpact do
                     areas["countries"]["all"] << place.country
                   end
                 end
+              # If it is a US zipcode
+              elsif place.is_a?(Gnlookup::Zipcode)
+                zipcode_city = place.city
+                counters["addresses"]["cities"] += 1
+                if !cities.include? zipcode_city
+                  cities << zipcode_city
+                  points["cities"]["all"] << zipcode_city
+                  if zipcode_city.country.name != "United States"
+                     points["cities"]["international"] << zipcode_city
+                  else
+                     points["cities"]["domestic"] << zipcode_city
+                  end
+                  if zipcode_city.country.name == "United States"
+                    if !states.include? zipcode_city.region
+                      states << zipcode_city.region
+                      areas["states"]["all"] << zipcode_city.region
+                    end
+                  end
+                  if !countries.include? zipcode_city.country
+                    countries << zipcode_city.country
+                    areas["countries"]["all"] << zipcode_city.country
+                  end
+                end
               # If it is a region
               elsif place.is_a?(Gnlookup::Region)
                 counters["addresses"]["regions"] += 1
