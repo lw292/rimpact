@@ -76,6 +76,7 @@ namespace :rimpact do
         "addresses" => {
           "total" => 0,
           "parsed" => 0,
+          "zipcodes" => 0,
           "cities" => 0,
           "regions" => 0,
           "countries" => 0
@@ -129,7 +130,7 @@ namespace :rimpact do
               # If it is a US zipcode
               elsif place.is_a?(Gnlookup::Zipcode)
                 zipcode_city = place.city
-                counters["addresses"]["cities"] += 1
+                counters["addresses"]["zipcodes"] += 1
                 if !cities.include? zipcode_city
                   cities << zipcode_city
                   points["cities"]["all"] << zipcode_city
@@ -265,9 +266,13 @@ namespace :rimpact do
       end
     
       # Output message
-      puts "\n" + counters["references"]["skipped"].to_s + " references were skipped because there are too many addresses."
+      puts "\n" + counters["references"]["skipped"].to_s + " references were skipped because there are too many (2000 and more) addresses."
       puts "There were " + counters["addresses"]['total'].to_s + " addresses in the unskipped references, among which " + counters["addresses"]['parsed'].to_s + " were parsed."
-      puts "Among the parsed addresses, " + counters["addresses"]['cities'].to_s + " were parsed to the city level, " + counters["addresses"]['regions'].to_s + " were parsed to the region level, and " + counters["addresses"]['countries'].to_s + " were parsed to the country level."
+      puts "Among the parsed addresses: "
+      puts counters["addresses"]['zipcodes'].to_s + " were parsed to the zipcode level,"
+      puts counters["addresses"]['cities'].to_s + " were parsed to the city level,"
+      puts counters["addresses"]['regions'].to_s + " were parsed to the region level, and"
+      puts counters["addresses"]['countries'].to_s + " were parsed to the country level."
       
     end
   
