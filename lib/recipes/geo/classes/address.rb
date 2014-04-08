@@ -23,7 +23,7 @@ class Address
     pieces = self.string.split(",")
     pieces.each do |piece|
       value = piece.strip.chomp(".")
-      cities << Gnlookup::City.where("name_n = ?", value)
+      cities << Gnlookup::City.where("name_n = ?", I18n.transliterate(value).downcase)
     end
     return cities.flatten
   end
@@ -44,9 +44,9 @@ class Address
       us_address_pattern = /(^[A-Z]{2}\s\d{5}$)|(^[A-Z]{2}\s\d{5}-\d{4}$)/
       if !(us_address_pattern =~ value).nil? # If this matches a US address pattern
         state_name = value.split(" ")[0].chomp(".") # Get the state name
-        regions << Gnlookup::Region.where("name_n = ? OR iso_n = ?", state_name, state_name) # Search with state names
+        regions << Gnlookup::Region.where("name_n = ? OR iso_n = ?", I18n.transliterate(state_name).downcase, I18n.transliterate(state_name).downcase) # Search with state names
       else
-        regions << Gnlookup::Region.where("name_n = ? OR iso_n = ?", value, value) # Search with raw value
+        regions << Gnlookup::Region.where("name_n = ? OR iso_n = ?", I18n.transliterate(value).downcase, I18n.transliterate(value).downcase) # Search with raw value
       end
     end
     return regions.flatten
@@ -68,7 +68,7 @@ class Address
       us_address_pattern = /(^[A-Z]{2}\s\d{5}$)|(^[A-Z]{2}\s\d{5}-\d{4}$)/
       if !(us_address_pattern =~ value).nil? # If this matches a US address pattern
         zipcode = value.split(" ")[1].split("-")[0]
-        zipcodes << Gnlookup::Zipcode.where("zipcode_n = ?", zipcode)
+        zipcodes << Gnlookup::Zipcode.where("zipcode_n = ?", I18n.transliterate(zipcode).downcase)
       end
     end
     return zipcodes.flatten
@@ -81,7 +81,7 @@ class Address
     pieces = self.string.split(",")
     pieces.each do |piece|
       value = piece.strip.chomp(".")
-      countries << Gnlookup::Country.where("name_n = ? OR iso_n = ? OR iso3_n = ?", value, value, value)
+      countries << Gnlookup::Country.where("name_n = ? OR iso_n = ? OR iso3_n = ?", I18n.transliterate(value).downcase, I18n.transliterate(value).downcase, I18n.transliterate(value).downcase)
     end
     return countries.flatten
   end
