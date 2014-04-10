@@ -27,10 +27,27 @@ namespace :rimpact do
       who = STDIN.gets.chomp
       who = 'John Smith' if who.empty?
     
-      # Getting the raw data file.
+      # Getting and cleaning the raw data file.
       body = File.open(file, "r:bom|utf-8").read()
-      File.open(file, 'w') do |newfile| 
-        newfile << body
+      line_regex = /^([A-Z][A-Z0-9])  -( (.*))?$/
+      key_regex_order = 1
+      regex_match_length = 4
+      last_key = ""
+      File.open(file, 'w') do |new_file| 
+        body.lines.each do |line|
+          if !line.blank?
+            m = line.match(line_regex)
+            if m && m.length == regex_match_length
+              last_key = m[key_regex_order]
+              new_line = line
+            else
+              new_line = last_key + "  - " + line
+            end
+          else
+            new_line = line
+          end
+          new_file << new_line
+        end
       end
     
       # Parse the raw data file into reference objects
