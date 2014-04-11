@@ -57,6 +57,7 @@ Rimpact has been tested to work with the RIS data exported from the Scopus datab
 3. Navigate to a place where you wish to save the exported file, and choose a file name.
 4. In Output Style, choose "RefMan (RIS) Export".
 5. Click "Save".
+6. Move the exported file to your application's "public/data" directory.
 
 ==== RefWorks
 
@@ -64,6 +65,27 @@ Rimpact has been tested to work with the RIS data exported from the Scopus datab
 2. Go to "References", "Export".
 3. At "Select an export format", choose "Bibliographic Software".
 4. Click "Export References".
+5. Move the exported file to your application's "public/data" directory.
+
+== Cleaning the reference data
+
+Your visualization is only as good as the integrity of your data. The data you downloaded from online databases unfortunately is very likely to contain errors and inconsistencies. You should use a tool such as EndNote, RefWorks, or Microsoft Excel to clean up your data. Here are some common problems with referece data.
+
+=== Ambiguous author names
+
+Coming soon ...
+
+=== Multiple field values
+
+Coming soon...
+
+=== Inconsistent spellings
+
+Coming soon...
+
+=== Duplicate references
+
+Coming soon...
 
 == Recipes
 
@@ -84,10 +106,6 @@ All generated files will be saved to the path you specify when you run the task.
 
 The directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, start your Rails server, and point your browser to:
   http://your_rails_server_root_url/results/your_project_name/authors/index.html
-
-===== Ambiguous author names
-
-You should disambiguate author names before running this task. Rimpact assumes that authors by exactly the same name in your data are the same author and names that are not exactly the same belong to different authors.
 
 ==== The geo recipe
 
