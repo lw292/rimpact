@@ -74,33 +74,33 @@ Your visualization is only as good as the integrity of the reference data it is 
 === Ambiguous author names
 
 1. Are there authors that have more than one names in your data? For example:
-	Smith, J # Last name with first name initial
-	Smith, JD # Last name with both initials
-	Smith, John # Last name with first name spelled out
-	Smith, John D # Last name with first name spelled out and middle initial
-	Smith, John David # Last name with both first and middle names spelled out
-	Grosetta, Holly # Maiden name
-	Nardini, Holly Grosetta # Name changed after marriage
+  Smith, J # Last name with first name initial
+  Smith, JD # Last name with both initials
+  Smith, John # Last name with first name spelled out
+  Smith, John D # Last name with first name spelled out and middle initial
+  Smith, John David # Last name with both first and middle names spelled out
+  Grosetta, Holly # Maiden name
+  Nardini, Holly Grosetta # Name changed after marriage
 
 2. Are there more than one authors that have the same name? For example:
-	Shepherd, G # The senior
-	Shepherd, G # The junior
+  Shepherd, G # The senior
+  Shepherd, G # The junior
 	
 === Ambiguous place names
 
 1. Are there addresses, especially those that only has the city name, that refer to more than places in the world? For example:
-	London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
-	New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
+  London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
+  New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
 	
 2. Are there inconsistent spellings for place names? For example:
-	CT, ct, Conn., Connecticut
-	USA, U.S.A., United States, United States of America, US, U.S.
+  CT, ct, Conn., Connecticut
+  USA, U.S.A., United States, United States of America, US, U.S.
 	
 === Multiple field values
 
 Rimpact works best if each value is in its own line in the field. However, some databases string them together and use some sort of delimiter (; or  |) to separate them. For example:
-	Smith, JD; Jone, AD; ...
-	Yale University, New Haven, Connecticut, United States; Stanford University, Stanford, California, United States; ...
+  Smith, JD; Jone, AD; ...
+  Yale University, New Haven, Connecticut, United States; Stanford University, Stanford, California, United States; ...
 
 In that case, you should manually change the record (using a program such as EndNote) so that each value is in its own line, or change your code so that it will accomodate these special delimiter characters.
 
