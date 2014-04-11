@@ -31,9 +31,12 @@ This will create the following empty directories and files (if they do not alrea
   public/preferred/regions.csv
 
 
-== Getting RIS data from Scopus
+== Getting RIS data
 
-Rimpact has been tested to work with the RIS data exported from Scopus. Data from other sources will be tested in the future. Here is how to get RIS data from Scopus:
+Rimpact has been tested to work with the RIS data exported from the Scopus database. Most other bibliographic databases, such as PubMed, OvidSP, and the Web of Science, will export data to citation management applications, such as EndNote and RefWorks, even if they do not directly export to a format that Rimpact can work with. You can then use these citation management applications to export the data again to the RIS format, which Rimpact can work with.
+
+
+=== Scopus
 
 1. Go to the {Scopus}[http://www.scopus.com/] site. If you do not have access, please contact your librarian.
 2. Run your search to get a result set.
@@ -45,6 +48,22 @@ Rimpact has been tested to work with the RIS data exported from Scopus. Data fro
 8. To make things easier, you can copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like this:
   public/data/data.txt
 
+=== Citation Management Applications
+
+==== EndNote
+
+1. Select the references you wish to export.
+2. Go to "File", "Export".
+3. Navigate to a place where you wish to save the exported file, and choose a file name.
+4. In Output Style, choose "RefMan (RIS) Export".
+5. Click "Save".
+
+==== RefWorks
+
+1. Select the references you wish to export.
+2. Go to "References", "Export".
+3. At "Select an export format", choose "Bibliographic Software".
+4. Click "Export References".
 
 == Recipes
 

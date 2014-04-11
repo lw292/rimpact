@@ -30,7 +30,7 @@ namespace :rimpact do
       who = 'John Smith' if who.empty?
     
       # Getting and cleaning the raw data file.
-      body = File.open(file, "r:bom|utf-8").read()
+      body = File.open(file, "r:bom|utf-8").read().strip
       line_regex = /^([A-Z][A-Z0-9])  -( (.*))?$/
       key_regex_order = 1
       regex_match_length = 4
@@ -398,7 +398,7 @@ namespace :rimpact do
       CSV.open("lib/impact/preferred/cities.csv", 'a') do |csv|
         found.each do |city|
           if !city.preferred?
-            csv << [city.geoname_id, city.name, city.region.iso]
+            csv << [city.id, city.name, city.region.iso]
           end
         end
       end

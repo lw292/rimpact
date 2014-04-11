@@ -3,11 +3,11 @@ class Address
   
   @@preferred_regions = []
   CSV.foreach("public/preferred/regions.csv") do |row|
-    @@preferred_regions << Gnlookup::Region.find_by_geoname_id(row[0])
+    @@preferred_regions << Gnlookup::Region.find(row[0])
   end
   @@preferred_cities = []
   CSV.foreach("public/preferred/cities.csv") do |row|
-    @@preferred_cities << Gnlookup::City.find_by_geoname_id(row[0])
+    @@preferred_cities << Gnlookup::City.find(row[0])
   end
   
   attr_accessor :string

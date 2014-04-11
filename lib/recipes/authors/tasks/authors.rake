@@ -28,7 +28,7 @@ namespace :rimpact do
       who = 'John Smith' if who.empty?
     
       # Getting and cleaning the raw data file.
-      body = File.open(file, "r:bom|utf-8").read()
+      body = File.open(file, "r:bom|utf-8").read().strip
       line_regex = /^([A-Z][A-Z0-9])  -( (.*))?$/
       key_regex_order = 1
       regex_match_length = 4
