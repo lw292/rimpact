@@ -69,23 +69,44 @@ Rimpact has been tested to work with the RIS data exported from the Scopus datab
 
 == Cleaning the reference data
 
-Your visualization is only as good as the integrity of your data. The data you downloaded from online databases unfortunately is very likely to contain errors and inconsistencies. You should use a tool such as EndNote, RefWorks, or Microsoft Excel to clean up your data. Here are some common problems with referece data.
+Your visualization is only as good as the integrity of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain errors and inconsistencies. You should try your best and use tools such as EndNote, RefWorks, or Microsoft Excel to clean up the data. Here are some common problems with reference data.
 
 === Ambiguous author names
 
-Coming soon ...
+1. Are there authors that have more than one names in your data? For example:
+	Smith, J # Last name with first name initial
+	Smith, JD # Last name with both initials
+	Smith, John # Last name with first name spelled out
+	Smith, John D # Last name with first name spelled out and middle initial
+	Smith, John David # Last name with both first and middle names spelled out
+	Grosetta, Holly # Maiden name
+	Nardini, Holly Grosetta # Name changed after marriage
 
+2. Are there more than one authors that have the same name? For example:
+	Shepherd, G # The senior
+	Shepherd, G # The junior
+	
+=== Ambiguous place names
+
+1. Are there addresses, especially those that only has the city name, that refer to more than places in the world? For example:
+	London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
+	New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
+	
+2. Are there inconsistent spellings for place names? For example:
+	CT, ct, Conn., Connecticut
+	USA, U.S.A., United States, United States of America, US, U.S.
+	
 === Multiple field values
 
-Coming soon...
+Rimpact works best if each value is in its own line in the field. However, some databases string them together and use some sort of delimiter (; or  |) to separate them. For example:
+	Smith, JD; Jone, AD; ...
+	Yale University, New Haven, Connecticut, United States; Stanford University, Stanford, California, United States; ...
 
-=== Inconsistent spellings
-
-Coming soon...
+In that case, you should manually change the record (using a program such as EndNote) so that each value is in its own line, or change your code so that it will accomodate these special delimiter characters.
 
 === Duplicate references
 
-Coming soon...
+If you are getting data from different sources, you are likely to get duplicates in your data set. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features, but please note that due to subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
 
 == Recipes
 
