@@ -104,13 +104,13 @@ Are there places that have more than one names in your data? For example:
   CT, ct, Conn., Connecticut
   USA, U.S.A., United States, United States of America, US, U.S.
 	
-=== Multiple field values
+=== Multi-valued fields
 
-Rimpact works best if each value is in its own line in the field. However, some databases string them together and use some sort of delimiter (; or  |) to separate them. For example:
+Rimpact works best if each value is in its own line in a multi-valued field. However, some databases string values together and use some sort of delimiter (; or  |) to separate them. For example:
   Smith, JD; Jone, AD; ...
   Yale University, New Haven, Connecticut, United States; Stanford University, Stanford, California, United States; ...
 
-In that case, you should manually change the record (using a program such as EndNote) so that each value is in its own line, or change your code so that it will accomodate these special delimiter characters.
+In that case, you should change the record (using a program such as EndNote) so that each value is in its own line, or change your code so that it will accomodate these special delimiter characters.
 
 === Duplicate references
 
