@@ -31,7 +31,7 @@ This will create the following empty directories and files (if they do not alrea
   public/preferred/regions.csv
 
 
-== Getting RIS data
+== Getting RIS Data
 
 Rimpact has been tested to work with reference data exported from Scopus in the RIS format. For most other bibliographic databases, such as PubMed, the OvidSP databases, and the Web of Knowledge databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up (if necessary) and export the data to the RIS format.
 
@@ -71,17 +71,17 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 6. Click "Export References".
 7. Move the exported file to your application's "public/data" directory.
 
-== Cleaning reference data
+== Cleaning Reference Data
 
 Your visualization can only be as good as the integrity of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain errors and inconsistencies. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data. Here are some common problems to pay attention to.
 
-=== Ambiguous author names
+=== Ambiguous Author Names
 
 Are there more than one authors that have the same name? For example:
   Shepherd, G # The senior
   Shepherd, G # The junior
 	
-=== Inconsistent author names
+=== Inconsistent Author Names
 
 Are there authors that have more than one names in your data? For example:
   Smith, J # Last name with first name initial
@@ -92,19 +92,19 @@ Are there authors that have more than one names in your data? For example:
   Grosetta, Holly # Maiden name
   Nardini, Holly Grosetta # Name changed after marriage
 
-=== Ambiguous place names
+=== Ambiguous Place Names
 
 Are there addresses that refer to more than one places in the world? For example:
   London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
   New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
 	
-=== Inconsistent place names
+=== Inconsistent Place Names
 
 Are there places that have more than one names in your data? For example:
   CT, ct, Conn., Connecticut
   USA, U.S.A., United States, United States of America, US, U.S.
 	
-=== Multi-valued fields
+=== Multi-valued Fields
 
 Rimpact works best if each value is in its own line in a multi-valued field. However, some databases string values together and use some sort of delimiter (; or  |) to separate them. For example:
   Smith, JD; Jone, AD; ...
@@ -112,18 +112,19 @@ Rimpact works best if each value is in its own line in a multi-valued field. How
 
 In that case, you should change the record (using a program such as EndNote) so that each value is in its own line, or change your code so that it will accomodate these special delimiter characters.
 
-=== Duplicate references
+=== Duplicate References
 
 If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features, but please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
 
-== Recipes
+
+== Visualizing Reference Data Using Recipes
 
 Once you have a clean, consistent, and non-ambiguous set of references in RIS format, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
   rake -T
 
 You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
 
-==== The authors recipe
+==== The Authors Recipe
 
 The +authors+ recipe generates {force-directed graphs}[http://en.wikipedia.org/wiki/Force-directed_graph_drawing] of author collaboration networks. To do that, run:
   rake rimpact:authors:create
@@ -136,21 +137,21 @@ All generated files will be saved to the path you specify when you run the task.
 The directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, start your Rails server, and point your browser to:
   http://your_rails_server_root_url/results/your_project_name/authors/index.html
 
-==== The geo recipe
+==== The Geo Recipe
 
 The +geo+ recipe generates graphs of geographical collaboration networks.
 
-===== Setting up Gnlookup
+===== Setting Up Gnlookup
 
 The +geo+ recipe relies on a service from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that service. Please follow {this guide}[https://github.com/lw292/gnlookup] to set it up for your Rails application.
 
-===== Getting map data
+===== Getting Map Data
 
 In order for the browser to display maps, you will need the map shape data for the United States and the world in {geojson format}[http://en.wikipedia.org/wiki/GeoJSON]. Please follow {this guide}[http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata] to generate these data files and place them in the +public/external+ directory. You should end up having these files:
   public/external/geo/us.json
   public/external/geo/world.json
 
-===== Using the geo recipe
+===== Using the Geo Recipe
 
 To create a graph of geographical collaboration networks from the RIS data, run:
   rake rimpact:geo:create
@@ -163,7 +164,7 @@ All generated files will be saved to the path you specify when you run the task.
 Again the directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, make sure your Rails server is running, and point your browser to:
   http://your_rails_server_root_url/results/your_project_name/geo/index.html
 
-===== Ambiguous US cities
+===== Ambiguous US Cities
 
 As mentioned above in the "Cleaning reference data" section, place name ambiguity occurs if there are missing parts in the address. For example, "New Haven, United States" could be any one of these:
   New Haven, Connecticut, United States
