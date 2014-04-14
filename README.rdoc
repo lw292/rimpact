@@ -89,8 +89,9 @@ Are there authors that have more than one names in your data? For example:
   Smith, John # Last name with first name spelled out
   Smith, John D # Last name with first name spelled out and middle initial
   Smith, John David # Last name with both first and middle names spelled out
-  Grosetta, Holly # Maiden name
-  Nardini, Holly Grosetta # Name changed after marriage
+  
+  Grossetta, Holly # Maiden name
+  Nardini, Holly Grossetta # Name changed after marriage
 
 === Ambiguous Place Names
 
