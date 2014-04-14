@@ -114,11 +114,11 @@ In that case, you should change the record (using a program such as EndNote) so 
 
 === Duplicate references
 
-If you are getting data from different sources, you are likely to get duplicates in your data set. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features, but please note that due to subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
+If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features, but please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
 
 == Recipes
 
-You can now use Rimpact to generate visualization graphs from the RIS data. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
+Once you have a clean, consistent, and non-ambiguous set of references in RIS format, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
   rake -T
 
 You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
@@ -142,11 +142,11 @@ The +geo+ recipe generates graphs of geographical collaboration networks.
 
 ===== Setting up Gnlookup
 
-The +geo+ recipe relies on a database from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that function. Please follow {this guide}[https://github.com/lw292/gnlookup] to set it up for your Rails application.
+The +geo+ recipe relies on a service from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that service. Please follow {this guide}[https://github.com/lw292/gnlookup] to set it up for your Rails application.
 
 ===== Getting map data
 
-In order for the browser to display maps, you will need map shape data for the United States and the world in {geojson format}[http://en.wikipedia.org/wiki/GeoJSON]. Please follow {this guide}[http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata] to generate these data files and place them in the +public/external+ directory. You should end up having these files:
+In order for the browser to display maps, you will need the map shape data for the United States and the world in {geojson format}[http://en.wikipedia.org/wiki/GeoJSON]. Please follow {this guide}[http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata] to generate these data files and place them in the +public/external+ directory. You should end up having these files:
   public/external/geo/us.json
   public/external/geo/world.json
 
@@ -155,7 +155,7 @@ In order for the browser to display maps, you will need map shape data for the U
 To create a graph of geographical collaboration networks from the RIS data, run:
   rake rimpact:geo:create
 
-This will parse your RIS data file, extract the affiliation address fields, and for each address, if an address can be identified, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
+This will parse your RIS data file, extract the affiliation address fields, and for each address, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
 
 All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
   public/results/your_project_name/geo
@@ -165,17 +165,19 @@ Again the directory is a self contained system. You can drop it on to any web se
 
 ===== Ambiguous US cities
 
-Address ambiguity occurs if there are missing parts of the address in the data. For example, "New Haven, United States" could be any one of these:
+As mentioned above in the "Cleaning reference data" section, place name ambiguity occurs if there are missing parts in the address. For example, "New Haven, United States" could be any one of these:
   New Haven, Connecticut, United States
   New Haven, Indiana, United States
   New Haven, Michigan, United States
 
 Such ambiguity is more likely to exist for United States addresses because a lot of authors omit state information in their addresses.
 
-Rimpact will simply skip those addresses and will NOT try to make a disambiguation decision automatically. However, you can get a list of such skipped US addresses by running:
+If you do not disambiguate these addresses, Rimpact will simply skip those addresses and will NOT try to make a decision for you automatically.
+
+However, you can get a list of such skipped US addresses by running:
   rake rimpact:geo:check
 
-This will generate a number of files in your results directory including the "ambiguous_cities.csv" file. You will need to manually disambiguate these cities. To do that, replace each line with the correct city and state information in this format:
+This will generate a number of files in your results directory including the "ambiguous_cities.csv" file. You can now manually disambiguate these cities. To do that, replace each line with the correct city and state information in this format:
   New Haven, CT
   Philadelphia, PA
   Anytown, AL
