@@ -33,7 +33,7 @@ This will create the following empty directories and files (if they do not alrea
 
 == Getting RIS data
 
-Rimpact has been tested to work with the RIS data exported from the Scopus database. Most other bibliographic databases, such as PubMed, OvidSP, and the Web of Science, will export data to citation management applications, such as EndNote and RefWorks, even if they do not directly export to a format that Rimpact can work with. You can then use these citation management applications to export the data again to the RIS format, which Rimpact can work with.
+Rimpact has been tested to work with reference data exported from Scopus in the RIS format. For most other bibliographic databases, such as PubMed, the OvidSP databases, and the Web of Knowledge databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up (if necessary) and export the data to the RIS format.
 
 
 === Scopus
@@ -41,35 +41,39 @@ Rimpact has been tested to work with the RIS data exported from the Scopus datab
 1. Go to the {Scopus}[http://www.scopus.com/] site. If you do not have access, please contact your librarian.
 2. Run your search to get a result set.
 3. Select the references you would like to export.
-4. Click on the "Export" icon.
-5. In the popup, choose RIS format.
-6. In the dropdown, choose "Specify fields to be exported". Then select fields. Normally you would choose all fields under "Citation information" and "Abstract and Keywords" as well as the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for Rimpact to work.
-7. Click "Export", and the data will be downloaded to your computer.
-8. To make things easier, you can copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like this:
+4. Click on the "Export" icon. Notice if you want to export all references in the set (and not only those on the first page), you may need to choose that in the drop-down menu.
+5. In the popup, choose "RIS" format.
+6. In the dropdown, choose "Specify fields to be exported". Then select fields. Normally you would choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for Rimpact to work.
+7. Click "Export", and the data file will be downloaded to your computer (default file name is "scopus.ris").
+8. You can copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like this:
   public/data/data.txt
 
 === Citation Management Applications
 
 ==== EndNote
 
-1. Select the references you wish to export.
-2. Go to "File", "Export".
-3. Navigate to a place where you wish to save the exported file, and choose a file name.
-4. In Output Style, choose "RefMan (RIS) Export".
-5. Click "Save".
-6. Move the exported file to your application's "public/data" directory.
+1. Run your search in your favorite databases, and export references to EndNote.
+2. Clean up references in EndNote # See section below on "Cleaning reference data".
+3. Select the references you wish to export to RIS format in EndNote.
+4. Go to "File", "Export".
+5. Navigate to a location where you wish to save the exported file, and choose a file name.
+6. In Output Style drop-down, choose "RefMan (RIS) Export".
+7. Click "Save".
+8. Move the exported file to your application's "public/data" directory.
 
 ==== RefWorks
 
-1. Select the references you wish to export.
-2. Go to "References", "Export".
-3. At "Select an export format", choose "Bibliographic Software".
-4. Click "Export References".
-5. Move the exported file to your application's "public/data" directory.
+1. Run your search in your favorite databases, and export references to RefWorks.
+2. Clean up references in RefWorks. # See section below on "Cleaning reference data".
+3. Select the references you wish to export to RIS format in RefWorks.
+4. Go to "References", "Export".
+5. At "Select an export format", choose "Bibliographic Software".
+6. Click "Export References".
+7. Move the exported file to your application's "public/data" directory.
 
-== Cleaning the reference data
+== Cleaning reference data
 
-Your visualization is only as good as the integrity of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain errors and inconsistencies. You should try your best and use tools such as EndNote, RefWorks, or Microsoft Excel to clean up the data. Here are some common problems with reference data.
+Your visualization can only be as good as the integrity of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain errors and inconsistencies. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data. Here are some common problems to pay attention to.
 
 === Ambiguous author names
 
