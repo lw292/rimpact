@@ -77,6 +77,12 @@ Your visualization can only be as good as the integrity of the reference data it
 
 === Ambiguous author names
 
+Are there more than one authors that have the same name? For example:
+  Shepherd, G # The senior
+  Shepherd, G # The junior
+	
+=== Inconsistent author names
+
 Are there authors that have more than one names in your data? For example:
   Smith, J # Last name with first name initial
   Smith, JD # Last name with both initials
@@ -86,17 +92,15 @@ Are there authors that have more than one names in your data? For example:
   Grosetta, Holly # Maiden name
   Nardini, Holly Grosetta # Name changed after marriage
 
-Are there more than one authors that have the same name? For example:
-  Shepherd, G # The senior
-  Shepherd, G # The junior
-	
 === Ambiguous place names
 
-Are there addresses, especially those that only has the city name, that refer to more than places in the world? For example:
+Are there addresses that refer to more than one places in the world? For example:
   London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
   New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
 	
-Are there inconsistent spellings for place names? For example:
+=== Inconsistent place names
+
+Are there places that have more than one names in your data? For example:
   CT, ct, Conn., Connecticut
   USA, U.S.A., United States, United States of America, US, U.S.
 	
