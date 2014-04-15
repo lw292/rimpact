@@ -53,7 +53,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 ==== EndNote
 
 1. Run your search in your favorite databases, and export references to EndNote.
-2. Clean up references in EndNote # See section below on "Cleaning reference data".
+2. Clean up references in EndNote. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export to RIS format in EndNote.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
@@ -64,7 +64,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 ==== RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks.
-2. Clean up references in RefWorks. # See section below on "Cleaning reference data".
+2. Clean up references in RefWorks. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export to RIS format in RefWorks.
 4. Go to "References", "Export".
 5. At "Select an export format", choose "Bibliographic Software".
