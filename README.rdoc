@@ -33,7 +33,7 @@ This will create the following empty directories and files (if they do not alrea
 
 == Getting RIS Data
 
-Rimpact has been tested to work with reference data exported from Scopus in the RIS format. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one sources, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up (if necessary) and then export the data to the RIS format.
+Rimpact has been tested to work with reference data exported from Scopus in the RIS format. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning up Reference Data" section below) and then export to the RIS format.
 
 
 === Scopus
@@ -53,7 +53,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 ==== EndNote
 
 1. Run your search in your favorite databases, and export references to EndNote.
-2. Clean up references in EndNote. See the "Cleaning Reference Data" section below.
+2. Clean up references in EndNote. See the "Cleaning up Reference Data" section below.
 3. Select the references you wish to export to RIS format in EndNote.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
@@ -64,7 +64,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 ==== RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks.
-2. Clean up references in RefWorks. See the "Cleaning Reference Data" section below.
+2. Clean up references in RefWorks. See the "Cleaning up Reference Data" section below.
 3. Select the references you wish to export to RIS format in RefWorks.
 4. Go to "References", "Export".
 5. At "Select an export format", choose "Bibliographic Software".
@@ -73,7 +73,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 
 == Cleaning Reference Data
 
-Your visualization is only as good as the integrity of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data before generating the visualization. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to:
+Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data before generating the visualization. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to:
 
 === Ambiguous Author Names
 
