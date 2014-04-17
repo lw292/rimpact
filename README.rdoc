@@ -118,7 +118,7 @@ In that case, you should change the record (using a program such as EndNote) so 
 If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features, but please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
 
 
-== Transforming and Visualizing Data with Rimpact Recipes
+== Transforming and Visualizing Data with "Recipes"
 
 Once you have a clean, consistent, and non-ambiguous set of references in RIS format, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
   rake -T
