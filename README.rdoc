@@ -71,7 +71,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 6. Click "Export References".
 7. Move the exported file to your application's "public/data" directory.
 
-== Cleaning Reference Data
+== Cleaning up Reference Data
 
 Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data before generating the visualization. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to:
 
