@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "gnlookup"
   s.add_runtime_dependency "ref_parsers"
+  s.add_runtime_dependency "bibtex-ruby"
 end

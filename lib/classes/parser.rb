@@ -8,6 +8,30 @@ class RefParsers::RISParser
     @value_regex_order = 3
     @regex_match_length = 4
   end
+  def open(file)
+    body = File.open(file, "r:bom|utf-8").read().strip
+    line_regex = /^([A-Z][A-Z0-9])  -( (.*))?$/
+    key_regex_order = 1
+    regex_match_length = 4
+    last_key = ""
+    File.open(file, 'w') do |new_file| 
+      body.lines.each do |line|
+        if !line.blank?
+          m = line.match(line_regex)
+          if m && m.length == regex_match_length
+            last_key = m[key_regex_order]
+            new_line = line
+          else
+            new_line = last_key + "  - " + line
+          end
+        else
+          new_line = line
+        end
+        new_file << new_line
+      end
+    end
+    super
+  end
 end
 class RefParsers::LineParser
   def open(filename)

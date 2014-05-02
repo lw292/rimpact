@@ -46,7 +46,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 6. In the dropdown, choose "Specify fields to be exported". Then select fields. Normally you would choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for Rimpact to work.
 7. Click "Export", and the data file will be downloaded to your computer (default file name is "scopus.ris").
 8. You can copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like this:
-  public/data/data.txt
+  public/data/data.ris
 
 === Citation Management Applications
 
