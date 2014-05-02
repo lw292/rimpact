@@ -1,3 +1,5 @@
+require 'ref_parsers'
+
 class RefParsers::RISParser
   def initialize
     @type_key = "TY"

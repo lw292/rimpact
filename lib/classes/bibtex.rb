@@ -1,3 +1,5 @@
+require 'bibtex'
+
 class BibTeX::Names
   def to_array_of_strings
     array_of_strings = []
