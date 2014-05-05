@@ -11,6 +11,7 @@ class RefParsers::RISParser
     @regex_match_length = 4
     @key_value_separator = "  - "
     @file_type = "RIS"
+    @key_prefix = ""
   end
 end
 
@@ -25,6 +26,7 @@ class RefParsers::EndNoteParser
     @regex_match_length = 3
     @key_value_separator = " "
     @file_type = "EndNote"
+    @key_prefix = "%"
   end
 end
 
@@ -42,7 +44,7 @@ class RefParsers::LineParser
             last_key = m[@key_regex_order]
             new_line = line
           else
-            new_line = last_key + @key_value_separator + line
+            new_line = @key_prefix + last_key + @key_value_separator + line
           end
         else
           new_line = line
