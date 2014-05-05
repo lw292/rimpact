@@ -298,9 +298,22 @@ namespace :rimpact do
       Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
     
       # Getting necessary user input
-      STDOUT.print "Where is the data file? [public/data/data.txt]:"
-      file = STDIN.gets.chomp
-      file = 'public/data/data.txt' if file.empty?
+      file_type = ""
+      while file_type != '.ris' && file_type != '.bib'
+        puts "Only RIS (.ris) or BibTeX (.bib) files are supported."
+        STDOUT.print "Where is the data file? [public/data/data.ris]:"
+        file = STDIN.gets.chomp
+        file = 'public/data/data.ris' if file.empty?
+        file_extname = File.extname(file)
+        if file_extname == ".bib" || file_extname == ".ris"
+          file_type = file_extname
+        else
+          STDOUT.print "What is the file type (must be either .ris or .bib)? [.ris]:"
+          file_type = STDIN.gets.chomp
+          file_type = '.ris' if file_type.empty?
+        end 
+      end
+      
       STDOUT.print "Where to save the generated files? [public/results/jsmith]:"
       uniqname = STDIN.gets.chomp
       uniqname = 'public/results/jsmith' if uniqname.empty?
@@ -311,15 +324,12 @@ namespace :rimpact do
         Dir.mkdir(uniqname+"/geo")
       end
     
-      # Getting the raw data file.
-      body = File.open(file, "r:bom|utf-8").read()
-      File.open(file, 'w') do |newfile| 
-        newfile << body
-      end
-    
       # Parse the raw data file into reference objects
-      parser = RefParsers::RISParser.new
-      references = parser.open(file)
+      if file_type == ".ris"
+        references = RefParsers::RISParser.new.open(file)
+      elsif file_type == ".bib"
+        references = BibTeX.open(file, :strip => false)
+      end
     
       count = 0
     
