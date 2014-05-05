@@ -2,7 +2,7 @@
 
 == Description
 
-Rimpact allows your Ruby on Rails application to parse bibliographic data in {BibTeX}[http://en.wikipedia.org/wiki/BibTeX] or {RIS}[http://en.wikipedia.org/wiki/RIS_(file_format)] formats and generate {d3.js}[http://d3js.org/] based visualization graphs.
+Rimpact allows your Ruby on Rails application to parse bibliographic data in {BibTeX}[http://en.wikipedia.org/wiki/BibTeX],  {RIS}[http://en.wikipedia.org/wiki/RIS_(file_format)], or {EndNote Export}[http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370] formats and generate {d3.js}[http://d3js.org/] based visualization graphs.
 
 
 == Configuring your Rails application
@@ -31,9 +31,9 @@ This will create the following empty directories and files (if they do not alrea
   public/preferred/regions.csv
 
 
-== Getting Data
+== Acquiring Reference Data
 
-Rimpact has been tested to work with reference data exported from Scopus in the BibTeX or RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning up Reference Data" section below) and then export to the BibTeX or RIS formats.
+Rimpact has been tested to work with reference data exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning up Reference Data" section below) and then export to the BibTeX or RIS formats. Rimpact will also take the data exported from EndNote in the "EndNote Export" format.
 
 
 === Scopus
@@ -65,6 +65,10 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 ==== EndNote (BibTeX)
 
 TODO: Instructions for exporting references (with all the required fields) from EndNote to BibTeX, and using a BibTeX editor to auto-generate BibTeX keys.
+
+==== EndNote (EndNote Export)
+
+TODO: Instructions for exporting references to the EndNote Export format.
 
 ==== RefWorks
 

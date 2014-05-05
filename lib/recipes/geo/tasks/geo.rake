@@ -24,6 +24,8 @@ namespace :rimpact do
           file_type = "bibtex"
         elsif file_extname == ".ris"
           file_type = "ris"
+        elsif file_extname == ".enw"
+          file_type = "endnote"
         else
           STDOUT.print "What is the file type (must be ris, bibtex, or endnote)? [ris]:"
           file_type = STDIN.gets.chomp
@@ -313,6 +315,8 @@ namespace :rimpact do
           file_type = "bibtex"
         elsif file_extname == ".ris"
           file_type = "ris"
+        elsif file_extname == ".enw"
+          file_type = "endnote"
         else
           STDOUT.print "What is the file type (must be ris, bibtex, or endnote)? [ris]:"
           file_type = STDIN.gets.chomp

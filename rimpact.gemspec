@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Lei Wang"]
   s.email       = ["lei.wang@yale.edu"]
   s.homepage    = "http://library.medicine.yale.edu"
-  s.summary     = "Rimpact parses bibliographic data in RIS format and generates d3.js based visualization graphs."
-  s.description = "Rimpact allows your Ruby on Rails application to parse bibliographic data in RIS format and generate d3.js based visualization graphs."
+  s.summary     = "Rimpact parses bibliographic data in various formats and generates d3.js based visualization graphs."
+  s.description = "Rimpact allows your Ruby on Rails application to parse bibliographic data in various formats and generate d3.js based visualization graphs."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
