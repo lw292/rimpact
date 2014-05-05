@@ -12,18 +12,20 @@ namespace :rimpact do
     
       # Getting necessary user input
       file_type = ""
-      while file_type != '.ris' && file_type != '.bib'
-        puts "Only RIS (.ris) or BibTeX (.bib) files are supported."
+      while file_type != 'ris' && file_type != 'bibtex' && file_type != 'endnote'
+        puts "Only RIS, EndNote Export, or BibTeX files are supported."
         STDOUT.print "Where is the data file? [public/data/data.ris]:"
         file = STDIN.gets.chomp
         file = 'public/data/data.ris' if file.empty?
         file_extname = File.extname(file)
-        if file_extname == ".bib" || file_extname == ".ris"
-          file_type = file_extname
+        if file_extname == ".bib"
+          file_type = "bibtex"
+        elsif file_extname == ".ris"
+          file_type = "ris"
         else
-          STDOUT.print "What is the file type (must be either .ris or .bib)? [.ris]:"
+          STDOUT.print "What is the file type (must be ris, bibtex, or endnote)? [ris]:"
           file_type = STDIN.gets.chomp
-          file_type = '.ris' if file_type.empty?
+          file_type = 'ris' if file_type.empty?
         end 
       end
       
@@ -42,9 +44,11 @@ namespace :rimpact do
       who = 'John Smith' if who.empty?
     
       # Parse the raw data file into reference objects
-      if file_type == ".ris"
+      if file_type == "ris"
         all_references = RefParsers::RISParser.new.open(file)
-      elsif file_type == ".bib"
+      elsif file_type == "endnote"
+        all_references = RefParsers::EndNoteParser.new.open(file)
+      elsif file_type == "bibtex"
         all_references = BibTeX.open(file, :strip => false)
       end
 

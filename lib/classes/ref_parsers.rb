@@ -10,7 +10,7 @@ class RefParsers::RISParser
     @value_regex_order = 3
     @regex_match_length = 4
     @key_value_separator = "  - "
-    @filetype = "RIS"
+    @file_type = "RIS"
   end
 end
 
@@ -24,7 +24,7 @@ class RefParsers::EndNoteParser
     @value_regex_order = 2
     @regex_match_length = 3
     @key_value_separator = " "
-    @filetype = "EndNote"
+    @file_type = "EndNote"
   end
 end
 
@@ -55,24 +55,24 @@ class RefParsers::LineParser
     # Convert entries to reference objects
     references = []
     entries.each do |entry|
-      references << RefParsers::Reference.new(entry, @filetype)
+      references << RefParsers::Reference.new(entry, @file_type)
     end
     references
   end
 end
 
 class RefParsers::Reference
-  attr_accessor :hash, :filetype
+  attr_accessor :hash, :file_type
 
-  def initialize(hash, filetype)
+  def initialize(hash, file_type)
     @hash = hash
-    @filetype = filetype
+    @file_type = file_type
   end
 
   def addresses
-    if @filetype == "RIS"
+    if @file_type == "RIS"
       fields = ["AD"]
-    elsif @filetype == "EndNote"
+    elsif @file_type == "EndNote"
       fields = ["+"]
     end
     addresses = []
@@ -89,9 +89,9 @@ class RefParsers::Reference
   end
 
   def year
-    if @filetype == "RIS"
+    if @file_type == "RIS"
       fields = ["PY", "Y1"]
-    elsif @filetype == "EndNote"
+    elsif @file_type == "EndNote"
       fields = ["D"]
     end
     fields.each do |field|
@@ -102,9 +102,9 @@ class RefParsers::Reference
   end
 
   def authors
-    if @filetype == "RIS"
+    if @file_type == "RIS"
       fields = ["AU", "A1"]
-    elsif @filetype == "EndNote"
+    elsif @file_type == "EndNote"
       fields = ["A"]
     end
     authors = []
