@@ -122,7 +122,7 @@ namespace :rimpact do
             end
           end
         
-          # Out to json
+          # Output to json
           json = {
             "nodes" => nodes,
             "links" => []
