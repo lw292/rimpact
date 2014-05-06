@@ -36,7 +36,7 @@ This will create the following empty directories and files (if they do not alrea
 Rimpact has been tested to work with reference data exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning up Reference Data" section below) and then export to the BibTeX or RIS formats. Rimpact will also take the data exported from EndNote in the "EndNote Export" format.
 
 
-=== From Scopus
+==== From Scopus
 
 1. Go to the {Scopus}[http://www.scopus.com/] site. If you do not have access, please contact your librarian.
 2. Run your search to get a result set.
@@ -49,7 +49,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
   public/data/scopus.bib
   public/data/scopus.ris
 
-=== From EndNote (RIS format)
+==== From EndNote (RIS format)
 
 1. Run your search in your favorite databases, and export references to EndNote.
 2. Clean up references in EndNote. See the "Cleaning up Reference Data" section below.
@@ -60,15 +60,15 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 7. Click "Save".
 8. Move the exported file to your application's "public/data" directory.
 
-=== From EndNote (BibTeX format)
+==== From EndNote (BibTeX format)
 
 TODO: Instructions for exporting references (with all the required fields) from EndNote to BibTeX, and using a BibTeX editor to auto-generate BibTeX keys.
 
-=== From EndNote (EndNote Export format)
+==== From EndNote (EndNote Export format)
 
 TODO: Instructions for exporting references to the EndNote Export format.
 
-=== From RefWorks
+==== From RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks.
 2. Clean up references in RefWorks. See the "Cleaning up Reference Data" section below.
@@ -82,13 +82,13 @@ TODO: Instructions for exporting references to the EndNote Export format.
 
 Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data before generating the visualization. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to:
 
-=== Ambiguous Author Names
+==== Ambiguous Author Names
 
 Are there more than one authors that have the same name? For example:
   Shepherd, G # The senior
   Shepherd, G # The junior
 	
-=== Inconsistent Author Names
+==== Inconsistent Author Names
 
 Are there authors that have more than one names in your data? For example:
   Smith, J # Last name with first name initial
@@ -100,19 +100,19 @@ Are there authors that have more than one names in your data? For example:
   Grossetta, Holly # Maiden name
   Nardini, Holly Grossetta # Name changed after marriage
 
-=== Ambiguous Place Names
+==== Ambiguous Place Names
 
 Are there addresses that refer to more than one places in the world? For example:
   London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
   New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
 	
-=== Inconsistent Place Names
+==== Inconsistent Place Names
 
 Are there places that have more than one names in your data? For example:
   CT, ct, Conn., Connecticut
   USA, U.S.A., United States, United States of America, US, U.S.
 	
-=== Multi-valued Fields
+==== Multi-valued Fields
 
 Rimpact will recognize common value delimiters in multi-valued fields, such as semicolons(;) and new line characters. Your data may use a different delimiter character, such as the pipe character (|):
   Smith, JD | Jone, AD | ...
@@ -120,7 +120,7 @@ Rimpact will recognize common value delimiters in multi-valued fields, such as s
 
 In that case, you can either change your data (using a program such as EndNote) so that values in multi-valued fields are delimited by semicolons or new line characters, or you can change your code so that it will accomodate these special delimiter characters.
 
-=== Duplicate References
+==== Duplicate References
 
 If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features, but please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
 
@@ -149,17 +149,17 @@ The directory is a self contained system. You can drop it on to any web server, 
 
 The +geo+ recipe generates graphs of geographical collaboration networks.
 
-===== Setting Up Gnlookup
+====== Setting Up Gnlookup
 
 The +geo+ recipe relies on a service from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that service. Please follow {this guide}[https://github.com/lw292/gnlookup] to set it up for your Rails application.
 
-===== Getting Map Data
+====== Getting Map Data
 
 In order for the browser to display maps, you will need the map shape data for the United States and the world in {geojson format}[http://en.wikipedia.org/wiki/GeoJSON]. Please follow {this guide}[http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata] to generate these data files and place them in the +public/external+ directory. You should end up having these files:
   public/external/geo/us.json
   public/external/geo/world.json
 
-===== Using the Geo Recipe
+====== Using the Geo Recipe
 
 To create a graph of geographical collaboration networks from the RIS data, run:
   rake rimpact:geo:create
@@ -172,7 +172,7 @@ All generated files will be saved to the path you specify when you run the task.
 Again the directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, make sure your Rails server is running, and point your browser to:
   http://your_rails_server_root_url/results/your_project_name/geo/index.html
 
-===== Ambiguous US Cities
+====== Ambiguous US Cities
 
 As mentioned above in the "Cleaning reference data" section, place name ambiguity occurs if there are missing parts in the address. For example, "New Haven, United States" could be any one of these:
   New Haven, Connecticut, United States
