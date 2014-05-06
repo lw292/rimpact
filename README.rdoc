@@ -36,7 +36,7 @@ This will create the following empty directories and files (if they do not alrea
 Rimpact has been tested to work with reference data exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning up Reference Data" section below) and then export to the BibTeX or RIS formats. Rimpact will also take the data exported from EndNote in the "EndNote Export" format.
 
 
-=== Scopus
+=== From Scopus
 
 1. Go to the {Scopus}[http://www.scopus.com/] site. If you do not have access, please contact your librarian.
 2. Run your search to get a result set.
@@ -49,9 +49,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
   public/data/scopus.bib
   public/data/scopus.ris
 
-=== Citation Management Applications
-
-==== EndNote (RIS)
+=== From EndNote (RIS format)
 
 1. Run your search in your favorite databases, and export references to EndNote.
 2. Clean up references in EndNote. See the "Cleaning up Reference Data" section below.
@@ -62,15 +60,15 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 7. Click "Save".
 8. Move the exported file to your application's "public/data" directory.
 
-==== EndNote (BibTeX)
+=== From EndNote (BibTeX format)
 
 TODO: Instructions for exporting references (with all the required fields) from EndNote to BibTeX, and using a BibTeX editor to auto-generate BibTeX keys.
 
-==== EndNote (EndNote Export)
+=== From EndNote (EndNote Export format)
 
 TODO: Instructions for exporting references to the EndNote Export format.
 
-==== RefWorks
+=== From RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks.
 2. Clean up references in RefWorks. See the "Cleaning up Reference Data" section below.
