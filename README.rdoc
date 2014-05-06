@@ -33,7 +33,7 @@ This will create the following empty directories and files (if they do not alrea
 
 == Acquiring Reference Data
 
-Rimpact has been tested to work with reference data exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning up Reference Data" section below) and then export to the BibTeX or RIS formats. Rimpact will also take the data exported from EndNote in the "EndNote Export" format.
+Rimpact has been tested to work with reference data exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning Reference Data" section below) and then export to the BibTeX or RIS formats. Rimpact will also take the data exported from EndNote in the "EndNote Export" format.
 
 
 ==== From Scopus
@@ -52,7 +52,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 ==== From EndNote (RIS format)
 
 1. Run your search in your favorite databases, and export references to EndNote.
-2. Clean up references in EndNote. See the "Cleaning up Reference Data" section below.
+2. Clean up references in EndNote. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export to RIS format in EndNote.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
@@ -71,7 +71,7 @@ TODO: Instructions for exporting references to the EndNote Export format.
 ==== From RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks.
-2. Clean up references in RefWorks. See the "Cleaning up Reference Data" section below.
+2. Clean up references in RefWorks. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export to RIS format in RefWorks.
 4. Go to "References", "Export".
 5. At "Select an export format", for RIS format, choose "Bibliographic Software", and for BibTeX format, choose "BibTeX - RefWorks ID".
