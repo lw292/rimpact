@@ -34,7 +34,9 @@ class RefParsers::LineParser
   def open(filename)
     # Read the file content, but remove the initial bom characters
     body = File.open(filename, "r:bom|utf-8").read().strip
-    # Add keys to values separated by newlines
+    # Add keys to values if multi-valued fields with new line characters
+    # as delimiters do not have a key for each value.
+    # Comment this out if you monkey patch the "parse_entry" method below to preserve new lines.
     last_key = ""
     data = ""
     body.lines.each do |line|
@@ -60,6 +62,46 @@ class RefParsers::LineParser
     end
     references
   end
+  
+  # Monkey patch the "parse_entry" method to preserve the new line character
+  # if multi-valued fields with new line characters as delimiters do not have a key for each value.
+  # Comment this out if you do add keys to these values at file reading time.
+  # protected
+  # def parse_entry(lines, next_line)
+  #   begin
+  #     return next_line if next_line >= lines.length
+  #     first = parse_first_line(lines[next_line])
+  #     next_line = next_line + 1
+  #   end while first.nil?
+  # 
+  #   fields = [first]
+  # 
+  #   last_parsed = {}
+  #   begin
+  #     parsed = parse_line(lines[next_line])
+  #     next_line = next_line + 1
+  #     if parsed
+  #       stop = false
+  #       if parsed[:key] == "-1"
+  #         parsed[:key] = last_parsed[:key]
+  #         # Preserve the newline character for better parsing.
+  #         parsed[:value] = "#{last_parsed[:value]}\n#{parsed[:value]}"
+  #         fields.delete_at fields.length - 1
+  #       elsif @terminator_key && parsed[:key] == @terminator_key
+  #         yield hash_entry(fields)
+  #         return next_line
+  #       end
+  #       last_parsed = parsed
+  #       fields << parsed
+  #     elsif @terminator_key.nil?
+  #       stop = true
+  #       yield hash_entry(fields)
+  #       return next_line
+  #     else
+  #       stop = false
+  #     end
+  #   end until stop
+  # end
 end
 
 class RefParsers::Reference
@@ -82,7 +124,13 @@ class RefParsers::Reference
     aos = []
     fields.each do |field|
       if !self.hash[field].nil?
-        addresses << self.hash[field]
+        if self.hash[field].is_a?(Array)
+          self.hash[field].each do |a|
+            addresses << a.split(/[\n\r;]/).collect{|a| a.strip}
+          end
+        elsif self.hash[field].is_a?(String)
+          addresses << self.hash[field].split(/[\n\r;]/).collect{|a| a.strip}
+        end
       end
     end
     addresses.flatten.each do |a|
@@ -117,7 +165,13 @@ class RefParsers::Reference
     authors = []
     fields.each do |field|
       if !self.hash[field].nil?
-        authors << self.hash[field]
+        if self.hash[field].is_a?(Array)
+          self.hash[field].each do |a|
+            authors << a.split(/[\n\r;]/).collect{|a| a.strip}
+          end
+        elsif self.hash[field].is_a?(String)
+          authors << self.hash[field].split(/[\n\r;]/).collect{|a| a.strip}
+        end
       end
     end
     return authors.flatten
