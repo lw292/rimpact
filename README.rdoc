@@ -51,7 +51,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 
 ==== From EndNote
 
-1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/], {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/]. Refer to the manual of the database for instructions on how to export to EndNote.
+1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/], and {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/]. Refer to the manual of the database for instructions on how to export to EndNote.
 2. Clean up references in EndNote. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export.
 4. Go to "File", "Export".
@@ -62,7 +62,7 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
 
 ==== From RefWorks
 
-1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/], {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/]. Refer to the manual of the database for instructions on how to export to EndNote.
+1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/], and {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/]. Refer to the manual of the database for instructions on how to export to EndNote.
 2. Clean up references in RefWorks. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export to RIS format in RefWorks.
 4. Go to "References", "Export".
