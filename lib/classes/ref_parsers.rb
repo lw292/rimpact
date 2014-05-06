@@ -32,28 +32,27 @@ end
 
 class RefParsers::LineParser
   def open(filename)
-    # Remove the initial hidden characters
+    # Read the file content, but remove the initial bom characters
     body = File.open(filename, "r:bom|utf-8").read().strip
-    # Add keys to multivalued fields separated by newlines
+    # Add keys to values separated by newlines
     last_key = ""
-    File.open(filename, 'w') do |new_file| 
-      body.lines.each do |line|
-        if !line.blank?
-          m = line.match(@line_regex)
-          if m && m.length == @regex_match_length
-            last_key = m[@key_regex_order]
-            new_line = line
-          else
-            new_line = @key_prefix + last_key + @key_value_separator + line
-          end
-        else
+    data = ""
+    body.lines.each do |line|
+      if !line.blank?
+        m = line.match(@line_regex)
+        if m && m.length == @regex_match_length
+          last_key = m[@key_regex_order]
           new_line = line
+        else
+          new_line = @key_prefix + last_key + @key_value_separator + line
         end
-        new_file << new_line
+      else
+        new_line = line
       end
+      data << new_line + "\n"
     end
     # Parse them into entries
-    entries = parse(File.read(filename, encoding: 'UTF-8'))
+    entries = parse(data)
     # Convert entries to reference objects
     references = []
     entries.each do |entry|

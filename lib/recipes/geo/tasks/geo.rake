@@ -20,11 +20,12 @@ namespace :rimpact do
         file = STDIN.gets.chomp
         file = 'public/data/data.ris' if file.empty?
         file_extname = File.extname(file)
-        if file_extname == ".bib"
+        case file_extname
+        when ".bib"
           file_type = "bibtex"
-        elsif file_extname == ".ris"
+        when ".ris"
           file_type = "ris"
-        elsif file_extname == ".enw"
+        when ".enw"
           file_type = "endnote"
         else
           STDOUT.print "What is the file type (must be ris, bibtex, or endnote)? [ris]:"
@@ -48,11 +49,12 @@ namespace :rimpact do
       who = 'John Smith' if who.empty?
     
       # Parse the raw data file into reference objects
-      if file_type == "ris"
+      case file_type
+      when "ris"
         references = RefParsers::RISParser.new.open(file)
-      elsif file_type == "endnote"
+      when "endnote"
         references = RefParsers::EndNoteParser.new.open(file)
-      elsif file_type == "bibtex"
+      when "bibtex"
         references = BibTeX.open(file, :strip => false)
       end
           
@@ -311,11 +313,12 @@ namespace :rimpact do
         file = STDIN.gets.chomp
         file = 'public/data/data.ris' if file.empty?
         file_extname = File.extname(file)
-        if file_extname == ".bib"
+        case file_extname
+        when ".bib"
           file_type = "bibtex"
-        elsif file_extname == ".ris"
+        when ".ris"
           file_type = "ris"
-        elsif file_extname == ".enw"
+        when ".enw"
           file_type = "endnote"
         else
           STDOUT.print "What is the file type (must be ris, bibtex, or endnote)? [ris]:"
@@ -335,11 +338,12 @@ namespace :rimpact do
       end
     
       # Parse the raw data file into reference objects
-      if file_type == "ris"
+      case file_type
+      when "ris"
         references = RefParsers::RISParser.new.open(file)
-      elsif file_type == "endnote"
+      when "endnote"
         references = RefParsers::EndNoteParser.new.open(file)
-      elsif file_type == "bibtex"
+      when "bibtex"
         references = BibTeX.open(file, :strip => false)
       end
           
