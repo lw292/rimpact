@@ -49,34 +49,50 @@ Rimpact has been tested to work with reference data exported from Scopus in the 
   public/data/scopus.bib
   public/data/scopus.ris
 
-==== From EndNote (RIS format)
+==== From EndNote
 
-1. Run your search in your favorite databases, and export references to EndNote.
+1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here:
+	{PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/]
+	{OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/]
+	{CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/]
 2. Clean up references in EndNote. See the "Cleaning Reference Data" section below.
-3. Select the references you wish to export to RIS format in EndNote.
+3. Select the references you wish to export.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
-6. In Output Style drop-down, for RIS format, choose "RefMan (RIS) Export". If it is not available in the dropdown, find them using "Select Another Style".
+6. In Output Style drop-down:
+	a. For RIS format, choose "RefMan (RIS) Export"
+	b. For EndNote Export format, choose "EndNote Export"
+	c. For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format".)
+	d. If the style is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
 8. Move the exported file to your application's "public/data" directory.
 
-==== From EndNote (BibTeX format)
-
-TODO: Instructions for exporting references (with all the required fields) from EndNote to BibTeX, and using a BibTeX editor to auto-generate BibTeX keys.
-
-==== From EndNote (EndNote Export format)
-
-TODO: Instructions for exporting references to the EndNote Export format.
-
 ==== From RefWorks
 
-1. Run your search in your favorite databases, and export references to RefWorks.
+1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here:
+	{PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/]
+	{OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/]
+	{CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/]
 2. Clean up references in RefWorks. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export to RIS format in RefWorks.
 4. Go to "References", "Export".
 5. At "Select an export format", for RIS format, choose "Bibliographic Software", and for BibTeX format, choose "BibTeX - RefWorks ID".
 6. Click "Export References".
 7. Move the exported file to your application's "public/data" directory.
+
+==== Using the BibTeX format
+
+The EndNote "BibTeX Export" style does not by default include the "affiliation" or "author address" field, which is critical for generating any geo-locational visualization graph. You can modify the "BibTeX Export" style to include the author affiliation address information. Here is how:
+
+1. Go to "Edit", "Output Styles", "Open Style Manager".
+2. Search for "BibTeX Export", and click "Edit"
+3. Under "Bibliography", "Templates", for each of the appropriate reference type, add a line for the affiliation / author address field, following the example of existing lines. For example:
+	|   `affiliation = `{Author Address},
+4. Save as a new style.
+
+The EndNote "BibTeX Export" style relies on the "Label" field to generate the required citation keys in BibTeX format, but often times references retrieved from databases have empty label fields. This causes those references to have empty keys when exported, which in turn causes some BibTeX parsing programs to break. RefWorks uses RefWorks ReferenceID field as the citation key when exporting to BibTeX, which should be unique if all the data in your BibTeX data file are from the same RefWorks account.
+
+If your exported BibTeX records have missing or duplicate keys, you can use {JabRef}[http://jabref.sourceforge.net/], a handy tool to help you auto-generate keys for your records.
 
 == Cleaning Reference Data
 
