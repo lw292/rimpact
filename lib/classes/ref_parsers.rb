@@ -75,6 +75,8 @@ class RefParsers::Reference
       fields = ["AD"]
     elsif @file_type == "EndNote"
       fields = ["+"]
+    else
+      fields = []
     end
     addresses = []
     aos = []
@@ -94,6 +96,8 @@ class RefParsers::Reference
       fields = ["PY", "Y1"]
     elsif @file_type == "EndNote"
       fields = ["D"]
+    else
+      fields = []
     end
     fields.each do |field|
       if !self.hash[field].nil?
@@ -107,6 +111,8 @@ class RefParsers::Reference
       fields = ["AU", "A1"]
     elsif @file_type == "EndNote"
       fields = ["A"]
+    else
+      fields = []
     end
     authors = []
     fields.each do |field|

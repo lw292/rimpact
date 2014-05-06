@@ -12,7 +12,7 @@ namespace :rimpact do
       Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
       Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
 
-      # Getting necessary user input
+      # Getting user input
       file_type = ""
       while file_type != 'ris' && file_type != 'bibtex' && file_type != 'endnote'
         puts "Only RIS, EndNote Export, or BibTeX files are supported."
