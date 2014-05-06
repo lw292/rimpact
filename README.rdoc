@@ -79,7 +79,9 @@ The EndNote "BibTeX Export" style does not by default include author affiliation
 3. Under "Bibliography", "Templates", for each of the appropriate reference types, add a line for "affiliation", extracting data from EndNote's "Author Address" field. Follow the syntax of existing lines.
 4. Save as a new style. From this point on, you can use this style for exporting to BibTeX format.
 
-The EndNote "BibTeX Export" style also relies on the "Label" field to generate the required citation keys in BibTeX format, but often times references retrieved from bibliographic databases have empty label fields. This causes those references to have empty keys when exported, which in turn causes some BibTeX parsing programs to break. RefWorks uses its own ReferenceID field as the citation key when exporting to BibTeX, which should be unique if all the data in your BibTeX file are from the same RefWorks account.
+The EndNote "BibTeX Export" style also relies on the "Label" field to generate the required citation keys in BibTeX format, but often times references retrieved from bibliographic databases have empty label fields. This causes those references to have empty keys when exported, which in turn causes some BibTeX parsing programs to break.
+
+RefWorks uses its own ReferenceID field as the citation key when exporting to BibTeX, which should be unique if all the data in your BibTeX file are from the same RefWorks account.
 
 If your exported BibTeX records have missing or duplicate keys, you can use the very handy {JabRef}[http://jabref.sourceforge.net/] tool to auto-generate keys.
 
@@ -132,7 +134,7 @@ If you obtain your references from different sources, there will likely be dupli
 
 == Transforming and Visualizing Reference Data
 
-Once you have a clean, consistent, and non-ambiguous set of references in RIS format, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
+Once you have a clean, consistent, and non-ambiguous set of references, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
   rake -T
 
 You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
@@ -142,7 +144,7 @@ You can create your own custom recipes following the example of the included rec
 The +authors+ recipe generates {force-directed graphs}[http://en.wikipedia.org/wiki/Force-directed_graph_drawing] of author collaboration networks. To do that, run:
   rake rimpact:authors:create
 
-This will parse your RIS data file, extract the author fields, calculate the number of collaborators and publications for each author, and generate the html, JavaScript and data required to display the force-directed graph.
+This will parse your data file, extract the author fields, calculate the number of collaborators and publications for each author, and generate the html, JavaScript and data required to display the force-directed graph.
 
 All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
   public/results/your_project_name/authors
@@ -166,10 +168,10 @@ In order for the browser to display maps, you will need the map shape data for t
 
 ====== Using the Geo Recipe
 
-To create a graph of geographical collaboration networks from the RIS data, run:
+To create a graph of geographical collaboration networks from the data, run:
   rake rimpact:geo:create
 
-This will parse your RIS data file, extract the affiliation address fields, and for each address, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
+This will parse your data file, extract the affiliation / address fields, and for each address, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
 
 All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
   public/results/your_project_name/geo
