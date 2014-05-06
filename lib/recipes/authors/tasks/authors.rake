@@ -10,7 +10,7 @@ namespace :rimpact do
       Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
       Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
     
-      # Getting necessary user input
+      # Getting user input
       file_type = ""
       while file_type != 'ris' && file_type != 'bibtex' && file_type != 'endnote'
         puts "Only RIS, EndNote Export, or BibTeX files are supported."
@@ -49,11 +49,11 @@ namespace :rimpact do
       # Parse the raw data file into reference objects
       case file_type
       when "ris"
-        references = RefParsers::RISParser.new.open(file)
+        all_references = RefParsers::RISParser.new.open(file)
       when "endnote"
-        references = RefParsers::EndNoteParser.new.open(file)
+        all_references = RefParsers::EndNoteParser.new.open(file)
       when "bibtex"
-        references = BibTeX.open(file, :strip => false)
+        all_references = BibTeX.open(file, :strip => false)
       end
 
       # Sorting records into year buckets
