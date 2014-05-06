@@ -13,7 +13,7 @@ Add the following lines to the +Gemfile+:
   gem 'gnlookup', :git => 'https://github.com/lw292/gnlookup.git'
   gem 'rimpact', :git => 'https://github.com/lw292/rimpact.git'
 
-At this point, if you are running Rails 4.x, you will need this line too in the +Gemfile+:
+If you are running Rails 4.x, you will also need this line in the +Gemfile+:
   gem 'protected_attributes'
 
 Then use the +bundle+ command to install the gems and their dependencies:
@@ -33,55 +33,55 @@ This will create the following empty directories and files (if they do not alrea
 
 == Acquiring Reference Data
 
-Rimpact has been tested to work with reference data exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean up the data (see the "Cleaning Reference Data" section below) and then export to the BibTeX or RIS formats. Rimpact will also take the data exported from EndNote in the "EndNote Export" format.
+Rimpact has been tested to work with reference data directedly exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the "Cleaning Reference Data" section below) and then export to one of the supported formats (BibTeX, RIS, or EndNote Export).
 
 
 ==== From Scopus
 
-1. Go to the {Scopus}[http://www.scopus.com/] site. If you do not have access, please contact your librarian.
+1. Go to {Scopus}[http://www.scopus.com/]. If you do not have access, please contact your librarian.
 2. Run your search to get a result set.
 3. Select the references you would like to export.
-4. Click on the "Export" icon. Notice if you want to export all references in the set (and not only those on the first page), you may need to choose that in the drop-down menu.
+4. Click the "Export" icon. Notice if you want to export all references in the set (and not only those on the first page), you may need to choose that in the drop-down menu.
 5. In the popup, choose "BibTeX" or "RIS" format.
-6. In the dropdown, choose "Specify fields to be exported". Then select fields. Normally you would choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for the RIS format.
-7. Click "Export", and the data file will be downloaded to your computer (default file name is "scopus.bib" or "scopus.ris").
-8. You can copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like these:
+6. In the dropdown, choose "Specify fields to be exported". Then select the fields. Normally you should choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for the RIS format.
+7. Click "Export", and the data file will be downloaded to your browser's download location, with the default file name "scopus.bib" or "scopus.ris".
+8. Copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like these:
   public/data/scopus.bib
   public/data/scopus.ris
 
 ==== From EndNote
 
-1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/], and {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/]. Refer to the manual of the database for instructions on how to export to EndNote.
-2. Clean up references in EndNote. See the "Cleaning Reference Data" section below.
+1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/], and {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/]. Refer to the manual of your database for instructions on how to export to EndNote.
+2. Clean the references in EndNote. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
-6. In Output Style drop-down, for RIS format, choose "RefMan (RIS) Export", for EndNote Export format, choose "EndNote Export", and for BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format".) If the style is not available in the dropdown, find it using "Select Another Style".
+6. In Output Style drop-down, for RIS format, choose "RefMan (RIS) Export", for EndNote Export format, choose "EndNote Export", and for BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format"). If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
 8. Move the exported file to your application's "public/data" directory.
 
 ==== From RefWorks
 
-1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/], and {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/]. Refer to the manual of the database for instructions on how to export to EndNote.
-2. Clean up references in RefWorks. See the "Cleaning Reference Data" section below.
-3. Select the references you wish to export to RIS format in RefWorks.
+1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here: {PubMed}[http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/], {OvidSP}[http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/], and {CINAHL}[http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/]. Refer to the manual of your database for instructions on how to export to RefWorks.
+2. Clean the references in RefWorks. See the "Cleaning Reference Data" section below.
+3. Select the references you wish to export.
 4. Go to "References", "Export".
 5. At "Select an export format", for RIS format, choose "Bibliographic Software", and for BibTeX format, choose "BibTeX - RefWorks ID".
-6. Click "Export References".
+6. Click "Export References", and the data file will be downloaded to your browser's download location.
 7. Move the exported file to your application's "public/data" directory.
 
 ==== Using the BibTeX format
 
-The EndNote "BibTeX Export" style does not by default include the "affiliation" or "author address" field, which is critical for generating any geo-locational visualization graph. You can modify the "BibTeX Export" style to include the author affiliation address information. Here is how:
+The EndNote "BibTeX Export" style does not by default include author affiliation information, which is critical for generating geolocation-based visualization graphs. You can modify the "BibTeX Export" style to include the author affiliation information. Here is how:
 
 1. Go to "Edit", "Output Styles", "Open Style Manager".
-2. Search for "BibTeX Export", and click "Edit"
-3. Under "Bibliography", "Templates", for each of the appropriate reference type, add a line for the affiliation / author address field, following the example of existing lines.
-4. Save as a new style.
+2. Search for the "BibTeX Export" style, and click "Edit".
+3. Under "Bibliography", "Templates", for each of the appropriate reference types, add a line for "affiliation", extracting data from EndNote's "Author Address" field. Follow the syntax of existing lines.
+4. Save as a new style. From this point on, you can use this style for exporting to BibTeX format.
 
-The EndNote "BibTeX Export" style relies on the "Label" field to generate the required citation keys in BibTeX format, but often times references retrieved from databases have empty label fields. This causes those references to have empty keys when exported, which in turn causes some BibTeX parsing programs to break. RefWorks uses RefWorks ReferenceID field as the citation key when exporting to BibTeX, which should be unique if all the data in your BibTeX data file are from the same RefWorks account.
+The EndNote "BibTeX Export" style also relies on the "Label" field to generate the required citation keys in BibTeX format, but often times references retrieved from bibliographic databases have empty label fields. This causes those references to have empty keys when exported, which in turn causes some BibTeX parsing programs to break. RefWorks uses its own ReferenceID field as the citation key when exporting to BibTeX, which should be unique if all the data in your BibTeX file are from the same RefWorks account.
 
-If your exported BibTeX records have missing or duplicate keys, you can use {JabRef}[http://jabref.sourceforge.net/], a handy tool to help you auto-generate keys for your records.
+If your exported BibTeX records have missing or duplicate keys, you can use the very handy {JabRef}[http://jabref.sourceforge.net/] tool to auto-generate keys.
 
 == Cleaning Reference Data
 
