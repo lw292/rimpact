@@ -112,6 +112,7 @@ namespace :rimpact do
         # Get the addresses
         addresses = reference.addresses
         # If the number of addresses is larger than ...
+        # This is here only because my computer is not beefy enough ...
         if addresses.size < 2000
           # Initialize containers for this individual paper
           countries = []
@@ -121,10 +122,11 @@ namespace :rimpact do
           # Loop through the addresses
           addresses.each do |address|
             counters["addresses"]["total"] += 1
+            # Try to parse the address to a "place"
             place = address.place
             if !place.nil?
               counters["addresses"]["parsed"] += 1
-              # If it is a city
+              # If it is a city, record the city, state (US only), and country.
               if place.is_a?(Gnlookup::City)
                 counters["addresses"]["cities"] += 1
                 if !cities.include? place
@@ -146,7 +148,7 @@ namespace :rimpact do
                     areas["countries"]["all"] << place.country
                   end
                 end
-              # If it is a US zipcode
+              # If it is a US zipcode, record the city, state, and country.
               elsif place.is_a?(Gnlookup::Zipcode)
                 zipcode_city = place.city
                 counters["addresses"]["zipcodes"] += 1
@@ -169,7 +171,7 @@ namespace :rimpact do
                     areas["countries"]["all"] << zipcode_city.country
                   end
                 end
-              # If it is a region
+              # If it is a region, record the country and the region if it is a US state.
               elsif place.is_a?(Gnlookup::Region)
                 counters["addresses"]["regions"] += 1
                 if place.country == "United States"
@@ -182,6 +184,7 @@ namespace :rimpact do
                   countries << place.country
                   areas["countries"]["all"] << place.country
                 end
+              # If it is a country, record the country.
               elsif place.is_a?(Gnlookup::Country)
                 counters["addresses"]["countries"] += 1
                 if !countries.include? place
@@ -192,7 +195,7 @@ namespace :rimpact do
             end
           end
               
-          # Generating link data for this reference
+          # Generating city links (international and domestic) for this reference
           cities.combination(2).to_a.each do |pair|
             connections["links"]["all"] << pair.sort_by{|p| p.id}
           end
@@ -214,10 +217,10 @@ namespace :rimpact do
       # Sort the years for display on the template page
       years.sort!
     
-      # Getting the center city for the spoke data
+      # Getting the "center" city for generating "spokes" data
       center = points["cities"]["all"].group_by {|x| x}.map {|k,v| [k,v.count]}[0][0]
     
-      # Generating spoke data
+      # Generating spoke data (international and domestic)
       if !center.nil?
         connections["links"]["all"].each do |link|
           if link[0].name == center.name || link[1].name == center.name
@@ -233,7 +236,7 @@ namespace :rimpact do
         end
       end
     
-      # For counts for display on the template page
+      # Counts for display on the template page
       counts = {
         "references" => counters["references"]["total"],
         "domestic_city" => points["cities"]["domestic"].group_by{|x| x}.map{|k, v| v.count}.size,
@@ -305,7 +308,7 @@ namespace :rimpact do
       Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
       Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
     
-      # Getting necessary user input
+      # Getting user input
       file_type = ""
       while file_type != 'ris' && file_type != 'bibtex' && file_type != 'endnote'
         puts "Only RIS, EndNote Export, or BibTeX files are supported."
@@ -394,7 +397,7 @@ namespace :rimpact do
       Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
       Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
     
-      # Getting necessary user input
+      # Getting user input
       STDOUT.print "Where are the source files? [public/results/jsmith]:"
       uniqname = STDIN.gets.chomp
       uniqname = 'public/results/jsmith' if uniqname.empty?

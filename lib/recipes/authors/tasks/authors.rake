@@ -68,7 +68,7 @@ namespace :rimpact do
     
       # Looping through each year bucket
       references_by_year.each do |year, references|
-          # Initializing nodes and links containers
+          # Initializing node and link containers
           nodes = []
           links = []
           # Reset counters
@@ -78,7 +78,8 @@ namespace :rimpact do
           references.each do |reference|
             # Get the authors from the record
             authors = reference.authors
-            # If the number of authors is larger than ...
+            # If the number of authors is larger than ... 
+            # This is here only because my computer is not beefy enough ...
             if authors.size < 100
               # Reset containers
               author_ids = []
@@ -89,7 +90,7 @@ namespace :rimpact do
                 if nodes.any? {|n| n["name"] == value}
                   # Locate that node
                   node = nodes.find{|n| n["name"] == value}
-                  # Increment the group count
+                  # Increment the count of the author by 1
                   node["group"] += 1
                   # Add the id of the author to the author id container for generating links
                   author_ids << node["id"]
@@ -121,7 +122,7 @@ namespace :rimpact do
             end
           end
         
-          # Create final json output
+          # Out to json
           json = {
             "nodes" => nodes,
             "links" => []
@@ -137,6 +138,8 @@ namespace :rimpact do
         # Getting years arrays
         years = references_by_year.keys
         all_years = years.clone.sort!
+        # If a generated file is too big, the browser will not be able to handle it, so forget it.
+        # You will have to find ways to split the year's data into smaller pieces
         years.reject!{|y| File.size(uniqname+"/authors/"+y+".json") > 524288}
         years.sort!
 
