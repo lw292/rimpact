@@ -65,7 +65,7 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
   * For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format");
   * If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
-8. Move the exported file to your application's "public/data" directory. Rename it if you wish.
+8. Move the exported file to your application's *public/data* directory. Rename it if you wish.
 
 #### From RefWorks
 
@@ -77,7 +77,7 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
   * For RIS format, choose "Bibliographic Software";
   * For BibTeX format, choose "BibTeX - RefWorks ID".
 6. Click "Export References", and the data file will be downloaded.
-7. Move the exported file to your application's "public/data" directory. Rename it if you wish.
+7. Move the exported file to your application's *public/data* directory. Rename it if you wish.
 
 #### Using the BibTeX format
 
