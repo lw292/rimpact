@@ -65,7 +65,7 @@ Rimpact has been tested to work with reference data directedly exported from [Sc
 6. In Output Style drop-down, choose your style:
   * For RIS format, choose "RefMan (RIS) Export";
   * For EndNote Export format, choose "EndNote Export";
-  * For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format").
+  * For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format");
   * If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
 8. Move the exported file to your application's "public/data" directory.
@@ -76,8 +76,10 @@ Rimpact has been tested to work with reference data directedly exported from [Sc
 2. Clean the references in RefWorks. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export.
 4. Go to "References", "Export".
-5. At "Select an export format", for RIS format, choose "Bibliographic Software", and for BibTeX format, choose "BibTeX - RefWorks ID".
-6. Click "Export References", and the data file will be downloaded to your browser's download location.
+5. At "Select an export format", choose your style:
+  * For RIS format, choose "Bibliographic Software";
+  * For BibTeX format, choose "BibTeX - RefWorks ID".
+6. Click "Export References", and the data file will be downloaded.
 7. Move the exported file to your application's "public/data" directory.
 
 #### Using the BibTeX format
@@ -87,19 +89,19 @@ The EndNote "BibTeX Export" style does not by default include author affiliation
 1. Go to "Edit", "Output Styles", "Open Style Manager".
 2. Search for the "BibTeX Export" style, and click "Edit".
 3. Under "Bibliography", "Templates", for each of the appropriate reference types, add a line for "affiliation", extracting data from EndNote's "Author Address" field. Follow the syntax of existing lines.
-4. Save as a new style. From this point on, you can use this style for exporting to BibTeX format.
+4. Save as a new style. From this point on, you can use this style (instead of the original "BibTeX Export" style) for exporting to BibTeX format.
 
 The EndNote "BibTeX Export" style also relies on the "Label" field to generate the required citation keys in BibTeX format, but often times references retrieved from bibliographic databases have empty label fields. This causes those references to have empty keys when exported, which in turn causes some BibTeX parsing programs to break.
 
-RefWorks uses its own ReferenceID field as the citation key when exporting to BibTeX, which should be unique if all the data in your BibTeX file are from the same RefWorks account.
+RefWorks uses its own "ReferenceID" field as the citation key when exporting to BibTeX, which should be unique if all the records in your BibTeX file are from the same RefWorks account.
 
 If your exported BibTeX records have missing or duplicate keys, you can use the very handy [JabRef](http://jabref.sourceforge.net/) tool to auto-generate keys.
 
 ## Cleaning Reference Data
 
-Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data before generating the visualization. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication.
+Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication.
 
-EndNote and RefWorks have the very useful "Find and Replace" funtion, which can help you batch modify your data. In EndNote, go to "Edit", and "Find and Replace". In RefWorks, click on the "Global Edit" icon, and expand the "Replace" section in the popup box.
+You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean up the data before generating the visualization. EndNote and RefWorks have the very useful "Find and Replace" funtion, which can help you batch modify your data. In EndNote, go to "Edit", and "Find and Replace". In RefWorks, click on the "Global Edit" icon, and expand the "Replace" section in the popup box.
 
 Here are some common problems to pay attention to when you are trying to clean your data:
 
