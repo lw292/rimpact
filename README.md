@@ -38,31 +38,37 @@ This will create the following empty directories and files (if they do not alrea
 
 ## Acquiring Reference Data
 
-Rimpact has been tested to work with reference data directedly exported from Scopus in the BibTeX and RIS formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the "Cleaning Reference Data" section below) and then export to one of the supported formats (BibTeX, RIS, or EndNote Export).
+Rimpact has been tested to work with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the "Cleaning Reference Data" section below) and then export to one of the supported formats (BibTeX, RIS, or EndNote Export).
 
 
 #### From Scopus
 
 1. Go to [Scopus](http://www.scopus.com/). If you do not have access, please contact your librarian.
 2. Run your search to get a result set.
-3. Select the references you would like to export.
-4. Click the "Export" icon. Notice if you want to export all references in the set (and not only those on the first page), you may need to choose that in the drop-down menu.
+3. Select the references you would like to export. If you want to export all references in the set or on the current page, you will need to specify that in the drop-down menu.
+4. Click the "Export" icon.
 5. In the popup, choose "BibTeX" or "RIS" format.
 6. In the dropdown, choose "Specify fields to be exported". Then select the fields. Normally you should choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for the RIS format.
-7. Click "Export", and the data file will be downloaded to your browser's download location, with the default file name "scopus.bib" or "scopus.ris".
-8. Copy the downloaded data file to your application's *public/data* directory. Rename it if you wish. Typically, you would end up having a file like these:
+7. Click "Export", and the data file will be downloaded, with the default file name "scopus.bib" or "scopus.ris".
+8. Copy the downloaded file to your application's *public/data* directory. Rename it if you wish. You should end up having a file like these:
 
         public/data/scopus.bib
         public/data/scopus.ris
 
 #### From EndNote
 
-1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/). Refer to the manual of your database for instructions on how to export to EndNote.
+1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/). Please refer to the manual of your database for instructions on how to export to EndNote.
 2. Clean the references in EndNote. See the "Cleaning Reference Data" section below.
 3. Select the references you wish to export.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
-6. In Output Style drop-down, for RIS format, choose "RefMan (RIS) Export", for EndNote Export format, choose "EndNote Export", and for BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format"). If the style you need is not available in the dropdown, find it using "Select Another Style".
+6. In Output Style drop-down:
+
+    * For RIS format, choose "RefMan (RIS) Export";
+	* For EndNote Export format, choose "EndNote Export";
+	* For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format").
+	
+    If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
 8. Move the exported file to your application's "public/data" directory.
 
