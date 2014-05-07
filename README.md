@@ -18,15 +18,21 @@ gem 'rimpact', :git => 'https://github.com/lw292/rimpact.git'
 
 If you are running Rails 4.x, you will also need this line in the *Gemfile*:
 
-    gem 'protected_attributes'
+```ruby
+gem 'protected_attributes'
+```
 
 Then use the *bundle* command to install the gems and their dependencies:
 
-    bundle install
+```ruby
+bundle install
+```
 
 You will need to create some required files and directories in your application. You can do so by running:
 
-    rake rimpact:setup
+```ruby
+rake rimpact:setup
+```
 
 This will create the following empty directories and files (if they do not already exist):
 
@@ -162,7 +168,9 @@ Please note that due to the subtle differences in the references data from diffe
 
 Once you have a clean, consistent, and non-ambiguous set of references, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the *lib/recipes* directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
 
-    rake -T
+```ruby
+rake -T
+```
 
 You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
 
@@ -170,7 +178,9 @@ You can create your own custom recipes following the example of the included rec
 
 The *authors* recipe generates [force-directed graphs](http://en.wikipedia.org/wiki/Force-directed_graph_drawing) of author collaboration networks. To do that, run:
 
-    rake rimpact:authors:create
+```ruby
+rake rimpact:authors:create
+```
 
 This will parse your data file, extract the author fields, calculate the number of collaborators and publications for each author, and generate the html, JavaScript and data required to display the force-directed graph.
 
@@ -201,7 +211,9 @@ In order for the browser to display maps, you will need the map shape data for t
 
 To create a graph of geographical collaboration networks from the data, run:
 
-    rake rimpact:geo:create
+```ruby
+rake rimpact:geo:create
+```
 
 This will parse your data file, extract the affiliation / address fields, and for each address, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
 
@@ -227,7 +239,9 @@ If you do not disambiguate these addresses, Rimpact will simply skip those addre
 
 However, you can get a list of such skipped US addresses by running:
 
-    rake rimpact:geo:check
+```ruby
+rake rimpact:geo:check
+```
 
 This will generate a number of files in your results directory including the "ambiguous_cities.csv" file. You can now manually disambiguate these cities. To do that, replace each line with the correct city and state information in this format:
 
@@ -239,14 +253,17 @@ You only need to include the city and state (2-letter code uppercase), and you o
 
 After that, you can add these cities to your "preferred cities" list:
 
-    rake rimpact:geo:preferred
+```ruby
+rake rimpact:geo:preferred
+```
 
 This will help Rimpact make a decision next time when such ambiguity occurs. For example, next time when it sees "New Haven, United States", it will know that "New Haven, CT" is your preferred city among all the "New Havens" in the United States, and therefore it will map that address to "New Haven, Connecticut, United States".
 
 After you update your preferred cities list, you should run this task again to update your graph:
 
-    rake rimpact:geo:create
-
+```ruby
+rake rimpact:geo:create
+```
 
 ## License
 
