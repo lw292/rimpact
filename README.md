@@ -312,7 +312,7 @@ After you update your preferred cities list, you should run this task again to u
 rake rimpact:geo:create
 ```
 
-<a name="custom_recipes">
+<a name="custom_recipes" />
 #### Creating Custom Recipes
 You can create your own custom recipes following the example of the included recipes. A recipe usually has these components:
 
