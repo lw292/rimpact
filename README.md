@@ -148,7 +148,12 @@ In that case, you can either change your data (using a program such as EndNote) 
 
 #### Duplicate References
 
-If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features, but please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
+If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features:
+
+* In EndNote, go to "References", "Find Duplicates";
+* In RefWorks, go to "View", "Duplicates".
+
+Please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
 
 
 ## Transforming and Visualizing Reference Data
