@@ -21,6 +21,7 @@
 	* [Getting Map Data](#map)
 	* [Using the Geo Recipe](#using_geo)
 	* [Ambiguous US Cities](#ambiguous_us_cities)
+  * [Creating Custom Recipes](#custom_recipes)
 * [License](#license)
 
 <a name="description" />
@@ -214,17 +215,6 @@ Once you have a clean, consistent, and non-ambiguous set of references, you can 
 rake -T
 ```
 
-You can create your own custom recipes following the example of the included recipes. A recipe usually has these components:
-
-* Parse the source data file.
-* Transform the parsed data, including, but not limited to:
-  * sorting, filtering, counting, grouping
-  * calculating ratios, indexes, percentiles
-* Save the results to a common standard data format, such as CSV, JSON, XML.
-* Create an HTML and d3.js visualization template what will display the saved data on a web page.
-
-If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
-
 <a name="authors" />
 #### The Authors Recipe
 
@@ -321,6 +311,19 @@ After you update your preferred cities list, you should run this task again to u
 ```ruby
 rake rimpact:geo:create
 ```
+
+<a name="custom_recipes">
+#### Creating Custom Recipes
+You can create your own custom recipes following the example of the included recipes. A recipe usually has these components:
+
+* Parse the source data file.
+* Transform the parsed data, including, but not limited to:
+  * sorting, filtering, counting, grouping
+  * calculating ratios, indexes, percentiles
+* Save the results to a common standard data format, such as CSV, JSON, XML.
+* Create an HTML and d3.js visualization template what will display the saved data on a web page.
+
+If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
 
 [[Top]](#top)
 
