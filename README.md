@@ -99,7 +99,12 @@ If your exported BibTeX records have missing or duplicate keys, you can use the 
 
 ## Cleaning Reference Data
 
-Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean the data before generating the visualization. EndNote and RefWorks have the very useful "Find and Replace" funtion, which can help you batch modify your data. In EndNote, go to "Edit", and "Find and Replace". In RefWorks, click on the "Global Edit" icon, and expand the "Replace" section in the popup box. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to when you are trying to clean your data:
+Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean the data before generating the visualization. EndNote and RefWorks have the very useful "Find and Replace" funtion, which can help you batch modify your data:
+
+  * In EndNote, go to "Edit", and choose "Find and Replace".
+  * In RefWorks, click on the "Global Edit" icon, and expand the "Replace" section in the popup box.
+
+The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to when you are trying to clean your data:
 
 #### Ambiguous Author Names
 
