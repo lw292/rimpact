@@ -115,10 +115,8 @@ The cleaning process usually involves disambiguation, resolving inconsistencies,
 
 Are there more than one authors that have the same name? For example:
 
-```ruby
-Shepherd, G # The senior
-Shepherd, G # The junior
-```
+    Shepherd, G # The senior
+    Shepherd, G # The junior
 	
 #### Inconsistent Author Names
 
