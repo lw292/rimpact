@@ -214,7 +214,16 @@ Once you have a clean, consistent, and non-ambiguous set of references, you can 
 rake -T
 ```
 
-You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
+You can create your own custom recipes following the example of the included recipes. A recipe usually has these components:
+
+* Parse the source data file.
+* Transform the parsed data, including, but not limited to:
+  * sorting, filtering, counting, grouping
+  * calculating ratios, indexes, percentiles
+* Save the results to a common standard data format, such as CSV, JSON, XML.
+* Create an HTML and d3.js visualization template what will display the saved data on a web page.
+
+If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
 
 <a name="authors" />
 #### The Authors Recipe
