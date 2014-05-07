@@ -62,13 +62,11 @@ Rimpact has been tested to work with reference data directedly exported from [Sc
 3. Select the references you wish to export.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
-6. In Output Style drop-down:
-
-    * For RIS format, choose "RefMan (RIS) Export";
-	* For EndNote Export format, choose "EndNote Export";
-	* For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format").
-	
-    If the style you need is not available in the dropdown, find it using "Select Another Style".
+6. In Output Style drop-down, choose your style:
+  * For RIS format, choose "RefMan (RIS) Export";
+  * For EndNote Export format, choose "EndNote Export";
+  * For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format").
+  * If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
 8. Move the exported file to your application's "public/data" directory.
 
