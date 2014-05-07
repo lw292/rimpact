@@ -1,4 +1,3 @@
-<a name="top" />
 # Rimpact
 
 * [Description](#description)
