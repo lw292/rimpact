@@ -9,16 +9,16 @@ Rimpact allows your Ruby on Rails application to parse bibliographic data in [Bi
 
 Take the following steps to configure your Rails application to use Rimpact.
 
-Add the following lines to the +Gemfile+:
+Add the following lines to the *Gemfile*:
 
     gem 'gnlookup', :git => 'https://github.com/lw292/gnlookup.git'
     gem 'rimpact', :git => 'https://github.com/lw292/rimpact.git'
 
-If you are running Rails 4.x, you will also need this line in the +Gemfile+:
+If you are running Rails 4.x, you will also need this line in the *Gemfile*:
 
     gem 'protected_attributes'
 
-Then use the +bundle+ command to install the gems and their dependencies:
+Then use the *bundle* command to install the gems and their dependencies:
 
     bundle install
 
@@ -50,7 +50,7 @@ Rimpact has been tested to work with reference data directedly exported from Sco
 5. In the popup, choose "BibTeX" or "RIS" format.
 6. In the dropdown, choose "Specify fields to be exported". Then select the fields. Normally you should choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for the RIS format.
 7. Click "Export", and the data file will be downloaded to your browser's download location, with the default file name "scopus.bib" or "scopus.ris".
-8. Copy the downloaded data file to your application's +public/data+ directory. Rename it if you wish. Typically, you would end up having a file like these:
+8. Copy the downloaded data file to your application's *public/data* directory. Rename it if you wish. Typically, you would end up having a file like these:
 
     public/data/scopus.bib
     public/data/scopus.ris
@@ -149,7 +149,7 @@ If you obtain your references from different sources, there will likely be dupli
 
 ## Transforming and Visualizing Reference Data
 
-Once you have a clean, consistent, and non-ambiguous set of references, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the +lib/recipes+ directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
+Once you have a clean, consistent, and non-ambiguous set of references, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the *lib/recipes* directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
 
     rake -T
 
@@ -157,31 +157,31 @@ You can create your own custom recipes following the example of the included rec
 
 #### The Authors Recipe
 
-The +authors+ recipe generates [force-directed graphs](http://en.wikipedia.org/wiki/Force-directed_graph_drawing) of author collaboration networks. To do that, run:
+The *authors* recipe generates [force-directed graphs](http://en.wikipedia.org/wiki/Force-directed_graph_drawing) of author collaboration networks. To do that, run:
 
     rake rimpact:authors:create
 
 This will parse your data file, extract the author fields, calculate the number of collaborators and publications for each author, and generate the html, JavaScript and data required to display the force-directed graph.
 
-All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
+All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your *public/results* directory:
 
     public/results/your_project_name/authors
 
-The directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, start your Rails server, and point your browser to:
+The directory is a self contained system. You can drop it on to any web server, and point your browser to the *index.html* file to view it. If you want to use your Rails application to view it, start your Rails server, and point your browser to:
 
     http://your_rails_server_root_url/results/your_project_name/authors/index.html
 
 #### The Geo Recipe
 
-The +geo+ recipe generates graphs of geographical collaboration networks.
+The *geo* recipe generates graphs of geographical collaboration networks.
 
 ###### Setting Up Gnlookup
 
-The +geo+ recipe relies on a service from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that service. Please follow [this guide](https://github.com/lw292/gnlookup) to set it up for your Rails application.
+The *geo* recipe relies on a service from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that service. Please follow [this guide](https://github.com/lw292/gnlookup) to set it up for your Rails application.
 
 ###### Getting Map Data
 
-In order for the browser to display maps, you will need the map shape data for the United States and the world in [geojson format](http://en.wikipedia.org/wiki/GeoJSON). Please follow [this guide](http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata) to generate these data files and place them in the +public/external+ directory. You should end up having these files:
+In order for the browser to display maps, you will need the map shape data for the United States and the world in [geojson format](http://en.wikipedia.org/wiki/GeoJSON). Please follow [this guide](http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata) to generate these data files and place them in the *public/external* directory. You should end up having these files:
 
     public/external/geo/us.json
     public/external/geo/world.json
@@ -194,11 +194,11 @@ To create a graph of geographical collaboration networks from the data, run:
 
 This will parse your data file, extract the affiliation / address fields, and for each address, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
 
-All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your +public/results+ directory:
+All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your *public/results* directory:
 
     public/results/your_project_name/geo
 
-Again the directory is a self contained system. You can drop it on to any web server, and point your browser to the +index.html+ file to view it. If you want to use your Rails application to view it, make sure your Rails server is running, and point your browser to:
+Again the directory is a self contained system. You can drop it on to any web server, and point your browser to the *index.html* file to view it. If you want to use your Rails application to view it, make sure your Rails server is running, and point your browser to:
 
     http://your_rails_server_root_url/results/your_project_name/geo/index.html
 
