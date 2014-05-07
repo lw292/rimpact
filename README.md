@@ -240,10 +240,12 @@ The directory is a self contained system. You can drop it on to any web server, 
 
 The *geo* recipe generates graphs of geographical collaboration networks.
 
+<a name="gnlookup" />
 ###### Setting Up Gnlookup
 
 The *geo* recipe relies on a service from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that service. Please follow [this guide](https://github.com/lw292/gnlookup) to set it up for your Rails application.
 
+<a name="map" />
 ###### Getting Map Data
 
 In order for the browser to display maps, you will need the map shape data for the United States and the world in [geojson format](http://en.wikipedia.org/wiki/GeoJSON). Please follow [this guide](http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata) to generate these data files and place them in the *public/external* directory. You should end up having these files:
@@ -251,6 +253,7 @@ In order for the browser to display maps, you will need the map shape data for t
     public/external/geo/us.json
     public/external/geo/world.json
 
+<a name="using_geo" />
 ###### Using the Geo Recipe
 
 To create a graph of geographical collaboration networks from the data, run:
@@ -269,6 +272,7 @@ Again the directory is a self contained system. You can drop it on to any web se
 
     http://your_rails_server_root_url/results/your_project_name/geo/index.html
 
+<a name="ambiguous_us_cities" />
 ###### Ambiguous US Cities
 
 As mentioned above in the "Cleaning reference data" section, place name ambiguity occurs if there are missing parts in the address. For example, "New Haven, United States" could be any one of these:
