@@ -172,7 +172,7 @@ The *authors* recipe generates [force-directed graphs](http://en.wikipedia.org/w
 
 This will parse your data file, extract the author fields, calculate the number of collaborators and publications for each author, and generate the html, JavaScript and data required to display the force-directed graph.
 
-All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your *public/results* directory:
+All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you will end up having this directory in your *public/results* directory:
 
     public/results/your_project_name/authors
 
@@ -203,7 +203,7 @@ To create a graph of geographical collaboration networks from the data, run:
 
 This will parse your data file, extract the affiliation / address fields, and for each address, try to determine the latitude and longitude of the address at city level. This will generate the html, JavaScript and data required to display the graphs of geographical collaboration networks.
 
-All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you would end up having this directory in your *public/results* directory:
+All generated files will be saved to the path you specify when you run the task. Typically, if you follow the conventions, you will end up having this directory in your *public/results* directory:
 
     public/results/your_project_name/geo
 
