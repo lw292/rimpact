@@ -38,7 +38,7 @@ This will create the following empty directories and files (if they do not alrea
 
 ## Acquiring Reference Data
 
-Rimpact has been tested to work with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the "Cleaning Reference Data" section below) and then export to one of the supported formats (BibTeX, RIS, or EndNote Export).
+Rimpact works with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the "Cleaning Reference Data" section below) and then re-export to one of the supported formats (BibTeX, RIS, or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370)).
 
 
 #### From Scopus
@@ -50,10 +50,7 @@ Rimpact has been tested to work with reference data directedly exported from [Sc
 5. In the popup, choose "BibTeX" or "RIS" format.
 6. In the dropdown, choose "Specify fields to be exported". Then select the fields. Normally you should choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for the RIS format.
 7. Click "Export", and the data file will be downloaded, with the default file name "scopus.bib" or "scopus.ris".
-8. Copy the downloaded file to your application's *public/data* directory. Rename it if you wish. You should end up having a file like these:
-
-        public/data/scopus.bib
-        public/data/scopus.ris
+8. Copy the downloaded file to your application's *public/data* directory. Rename it if you wish.
 
 #### From EndNote
 
@@ -68,7 +65,7 @@ Rimpact has been tested to work with reference data directedly exported from [Sc
   * For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format");
   * If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
-8. Move the exported file to your application's "public/data" directory.
+8. Move the exported file to your application's "public/data" directory. Rename it if you wish.
 
 #### From RefWorks
 
@@ -80,7 +77,7 @@ Rimpact has been tested to work with reference data directedly exported from [Sc
   * For RIS format, choose "Bibliographic Software";
   * For BibTeX format, choose "BibTeX - RefWorks ID".
 6. Click "Export References", and the data file will be downloaded.
-7. Move the exported file to your application's "public/data" directory.
+7. Move the exported file to your application's "public/data" directory. Rename it if you wish.
 
 #### Using the BibTeX format
 
