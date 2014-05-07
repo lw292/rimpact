@@ -1,6 +1,5 @@
+<a name="top" />
 # Rimpact
-
-## Table of Contents
 
 * [Description](#description)
 * [Configuring your Rails application](#configuring)
@@ -19,12 +18,16 @@
 * [Tranforming and Visualizing Reference Data](#transforming_and_visualizing)
   * [The Authors Recipe](#authors)
   * [The Geo Recipe](#geo)
+    * [Setting up Gnlookup](#gnlookup)
+	* [Getting Map Data](#map)
+	* [Using the Geo Recipe](#using_geo)
+	* [Ambiguous US Cities](#ambiguous_us_cities)
 * [License](#license)
 
 <a name="description" />
 ## Description
 
-Rimpact allows your Ruby on Rails application to parse bibliographic data in [BibTeX](http://en.wikipedia.org/wiki/BibTeX),  [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)), or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370) formats and generate [d3.js](http://d3js.org/) based visualization graphs.
+Rimpact allows your Ruby on Rails application to parse bibliographic data in [BibTeX](http://en.wikipedia.org/wiki/BibTeX),  [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)), or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370) formats and generate [d3.js](http://d3js.org/) based visualization graphs. [[Top]](#top)
 
 <a name="configuring" />
 ## Configuring your Rails application
