@@ -51,9 +51,8 @@ Rimpact has been tested to work with reference data directedly exported from Sco
 6. In the dropdown, choose "Specify fields to be exported". Then select the fields. Normally you should choose all fields under "Citation information" and the "Affiliations" field under "Bibliographical information". Please note that the "Source and Document Type" field under "Citation information" is REQUIRED for the RIS format.
 7. Click "Export", and the data file will be downloaded to your browser's download location, with the default file name "scopus.bib" or "scopus.ris".
 8. Copy the downloaded data file to your application's *public/data* directory. Rename it if you wish. Typically, you would end up having a file like these:
-
-    public/data/scopus.bib
-    public/data/scopus.ris
+    * public/data/scopus.bib
+    * public/data/scopus.ris
 
 #### From EndNote
 
