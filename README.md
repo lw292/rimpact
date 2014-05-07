@@ -11,8 +11,10 @@ Take the following steps to configure your Rails application to use Rimpact.
 
 Add the following lines to the *Gemfile*:
 
+```ruby
     gem 'gnlookup', :git => 'https://github.com/lw292/gnlookup.git'
     gem 'rimpact', :git => 'https://github.com/lw292/rimpact.git'
+```
 
 If you are running Rails 4.x, you will also need this line in the *Gemfile*:
 
