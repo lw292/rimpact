@@ -27,7 +27,9 @@
 <a name="description" />
 ## Description
 
-Rimpact allows your Ruby on Rails application to parse bibliographic data in [BibTeX](http://en.wikipedia.org/wiki/BibTeX),  [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)), or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370) formats and generate [d3.js](http://d3js.org/) based visualization graphs. [[Top]](#top)
+Rimpact allows your Ruby on Rails application to parse bibliographic data in [BibTeX](http://en.wikipedia.org/wiki/BibTeX),  [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)), or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370) formats and generate [d3.js](http://d3js.org/) based visualization graphs.
+
+[[Top]](#top)
 
 <a name="configuring" />
 ## Configuring your Rails application
@@ -67,6 +69,8 @@ This will create the following empty directories and files (if they do not alrea
     public/preferred
     public/preferred/cities.csv
     public/preferred/regions.csv
+
+[[Top]](#top)
 
 <a name="acquiring" />
 ## Acquiring Reference Data
@@ -129,6 +133,8 @@ The EndNote "BibTeX Export" style also relies on the "Label" field to generate t
 RefWorks uses its own "ReferenceID" field as the citation key when exporting to BibTeX, which should be unique if all the records in your BibTeX file are from the same RefWorks account.
 
 If your exported BibTeX records have missing or duplicate keys, you can use the very handy [JabRef](http://jabref.sourceforge.net/) tool to auto-generate keys.
+
+[[Top]](#top)
 
 <a name="cleaning" />
 ## Cleaning Reference Data
@@ -197,6 +203,8 @@ If you obtain your references from different sources, there will likely be dupli
 * In RefWorks, go to "View", "Duplicates".
 
 Please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
+
+[[Top]](#top)
 
 <a name="transforming_and_visualizing" />
 ## Transforming and Visualizing Reference Data
@@ -302,7 +310,11 @@ After you update your preferred cities list, you should run this task again to u
 rake rimpact:geo:create
 ```
 
+[[Top]](#top)
+
 <a name="license" />
 ## License
 
 This project rocks and uses MIT-LICENSE.
+
+[[Top]](#top)
