@@ -1,13 +1,32 @@
 # Rimpact
 
+## Table of Contents
+
+* [Description](#description)
+* [Configuring your Rails application](#configuring)
+* [Acquiring Reference Data](#acquiring)
+  * [From Scopus](#scopus)
+  * [From EndNote](#endnote)
+  * [From RefWorks](#refworks)
+  * [Using the BibTeX format](#bibtex)
+* [Cleaning Reference Data](#cleaning)
+  * [Ambiguous Author Names](#ambiguous_author_names)
+  * [Inconsistent Author Names](#inconsistent_author_names)
+  * [Ambiguous Place Names](#ambiguous_place_names)
+  * [Inconsistent Place Names](#inconsistent_place_names)
+  * [Multi-valued Fields](#multi-valued_fields)
+  * [Duplicate References](#duplicate_references)
+* [Tranforming and Visualizing Reference Data](#transforming_and_visualizing)
+  * [The Authors Recipe](#authors)
+  * [The Geo Recipe](#geo)
+* [License](#license)
+
 <a name="description" />
 ## Description
 
 Rimpact allows your Ruby on Rails application to parse bibliographic data in [BibTeX](http://en.wikipedia.org/wiki/BibTeX),  [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)), or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370) formats and generate [d3.js](http://d3js.org/) based visualization graphs.
 
-* [Configuring your Rails application](#configuration)
-
-<a name="configuration" />
+<a name="configuring" />
 ## Configuring your Rails application
 
 Take the following steps to configure your Rails application to use Rimpact.
@@ -125,7 +144,8 @@ Are there more than one authors that have the same name? For example:
 
     Shepherd, G # The senior
     Shepherd, G # The junior
-	
+
+<a name="inconsistent_author_names" />	
 #### Inconsistent Author Names
 
 Are there authors that have more than one names in your data? For example:
@@ -139,20 +159,23 @@ Are there authors that have more than one names in your data? For example:
     Grossetta, Holly # Maiden name
     Nardini, Holly Grossetta # Name changed after marriage
 
+<a name="ambiguous_place_names" />
 #### Ambiguous Place Names
 
 Are there addresses that refer to more than one places in the world? For example:
 
     London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
     New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
-	
+
+<a name="inconsistent_place_names" />
 #### Inconsistent Place Names
 
 Are there places that have more than one names in your data? For example:
 
     CT, ct, Conn., Connecticut
     USA, U.S.A., United States, United States of America, US, U.S.
-	
+
+<a name="multi-valued_fields" />
 #### Multi-valued Fields
 
 Rimpact will recognize common value delimiters in multi-valued fields, such as semicolons(;) and new line characters. Your data may use a different delimiter character, such as the pipe character (|):
@@ -162,6 +185,7 @@ Rimpact will recognize common value delimiters in multi-valued fields, such as s
 
 In that case, you can either change your data (using a program such as EndNote) so that values in multi-valued fields are delimited by semicolons or new line characters, or you can change your code so that it will accomodate these special delimiter characters.
 
+<a name="duplicate_references" />
 #### Duplicate References
 
 If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features:
@@ -171,7 +195,7 @@ If you obtain your references from different sources, there will likely be dupli
 
 Please note that due to the subtle differences in the references data from different sources, these programs may not be able to find all duplicates.
 
-
+<a name="transforming_and_visualizing" />
 ## Transforming and Visualizing Reference Data
 
 Once you have a clean, consistent, and non-ambiguous set of references, you can use Rimpact to generate visualization graphs. The algorithms for generating visualization graphs are encapsulated as "recipes" under the *lib/recipes* directory. At this point, only two recipes are included. Each recipe has its own rake tasks. To see what tasks are available, run the following command and look for tasks that start with "rimpact":
@@ -182,6 +206,7 @@ rake -T
 
 You can create your own custom recipes following the example of the included recipes. If you would like to contribute your recipes to us, please let us know so that we can add them to Rimpact.
 
+<a name="authors" />
 #### The Authors Recipe
 
 The *authors* recipe generates [force-directed graphs](http://en.wikipedia.org/wiki/Force-directed_graph_drawing) of author collaboration networks. To do that, run:
@@ -200,6 +225,7 @@ The directory is a self contained system. You can drop it on to any web server, 
 
     http://your_rails_server_root_url/results/your_project_name/authors/index.html
 
+<a name="geo" />
 #### The Geo Recipe
 
 The *geo* recipe generates graphs of geographical collaboration networks.
@@ -273,6 +299,7 @@ After you update your preferred cities list, you should run this task again to u
 rake rimpact:geo:create
 ```
 
+<a name="license" />
 ## License
 
 This project rocks and uses MIT-LICENSE.
