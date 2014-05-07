@@ -1,10 +1,13 @@
 # Rimpact
 
+<a name="description" />
 ## Description
 
 Rimpact allows your Ruby on Rails application to parse bibliographic data in [BibTeX](http://en.wikipedia.org/wiki/BibTeX),  [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)), or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370) formats and generate [d3.js](http://d3js.org/) based visualization graphs.
 
+* [Configuring your Rails application](#configuration)
 
+<a name="configuration" />
 ## Configuring your Rails application
 
 Take the following steps to configure your Rails application to use Rimpact.
@@ -43,12 +46,12 @@ This will create the following empty directories and files (if they do not alrea
     public/preferred/cities.csv
     public/preferred/regions.csv
 
-
+<a name="acquiring" />
 ## Acquiring Reference Data
 
 Rimpact works with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the "Cleaning Reference Data" section below) and then re-export to one of the supported formats (BibTeX, RIS, or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370)).
 
-
+<a name="scopus" />
 #### From Scopus
 
 1. Go to [Scopus](http://www.scopus.com/). If you do not have access, please contact your librarian.
@@ -60,6 +63,7 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 7. Click "Export", and the data file will be downloaded, with the default file name "scopus.bib" or "scopus.ris".
 8. Copy the downloaded file to your application's *public/data* directory. Rename it if you wish.
 
+<a name="endnote" />
 #### From EndNote
 
 1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/). Please refer to the manual of your database for instructions on how to export to EndNote.
@@ -75,6 +79,7 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 7. Click "Save".
 8. Move the exported file to your application's *public/data* directory. Rename it if you wish.
 
+<a name="refworks" />
 #### From RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/). Refer to the manual of your database for instructions on how to export to RefWorks.
@@ -87,6 +92,7 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 6. Click "Export References", and the data file will be downloaded.
 7. Move the exported file to your application's *public/data* directory. Rename it if you wish.
 
+<a name="bibtex" />
 #### Using the BibTeX format
 
 The EndNote "BibTeX Export" style does not by default include author affiliation information, which is critical for generating geolocation-based visualization graphs. You can modify the "BibTeX Export" style to include the author affiliation information. Here is how:
@@ -102,6 +108,7 @@ RefWorks uses its own "ReferenceID" field as the citation key when exporting to 
 
 If your exported BibTeX records have missing or duplicate keys, you can use the very handy [JabRef](http://jabref.sourceforge.net/) tool to auto-generate keys.
 
+<a name="cleaning" />
 ## Cleaning Reference Data
 
 Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean the data before generating the visualization. EndNote and RefWorks have the very useful "Find and Replace" funtion, which can help you batch modify your data:
@@ -111,6 +118,7 @@ Your visualization is only as good as the accuracy of the reference data it is b
 
 The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to when you are trying to clean your data:
 
+<a name="ambiguous_author_names" />
 #### Ambiguous Author Names
 
 Are there more than one authors that have the same name? For example:
