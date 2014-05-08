@@ -6,7 +6,7 @@
   * [From Scopus](#user-content-from-scopus)
   * [From EndNote](#user-content-from-endnote)
   * [From RefWorks](#user-content-from-refworks)
-  * [Using the BibTeX format](#user-content-using-the-bibtex-format)
+  * [Using the BibTeX Format](#user-content-using-the-bibtex-format)
 * [Cleaning Reference Data](#user-content-cleaning-reference-data)
   * [Ambiguous Author Names](#user-content-ambiguous-author-names)
   * [Inconsistent Author Names](#user-content-inconsistent-author-names)
@@ -72,7 +72,7 @@ This will create the following empty directories and files (if they do not alrea
 
 ## Acquiring Reference Data
 
-Rimpact works with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the "Cleaning Reference Data" section below) and then re-export to one of the supported formats (BibTeX, RIS, or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370)).
+Rimpact works with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the [Cleaning Reference Data](#user-content-cleaning-reference-data) section below) and then re-export to one of the supported formats (BibTeX, RIS, or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370)).
 
 #### From Scopus
 
@@ -88,14 +88,14 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 #### From EndNote
 
 1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/). Please refer to the manual of your database for instructions on how to export to EndNote.
-2. Clean the references in EndNote. See the "Cleaning Reference Data" section below.
+2. Clean the references in EndNote. See the [Cleaning Reference Data](#user-content-cleaning-reference-data) section below.
 3. Select the references you wish to export.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
 6. In Output Style drop-down, choose your style:
   * For RIS format, choose "RefMan (RIS) Export";
   * For EndNote Export format, choose "EndNote Export";
-  * For BibTeX format, choose "BibTeX Export" (See section below on "Using the BibTeX format");
+  * For BibTeX format, choose "BibTeX Export" (See the [Using the BibTeX Format](#user-content-using-the-bibtex-format) section below);
   * If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
 8. Move the exported file to your application's *public/data* directory. Rename it if you wish.
@@ -103,16 +103,16 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 #### From RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/). Refer to the manual of your database for instructions on how to export to RefWorks.
-2. Clean the references in RefWorks. See the "Cleaning Reference Data" section below.
+2. Clean the references in RefWorks. See the [Cleaning Reference Data](#user-content-cleaning-reference-data) section below.
 3. Select the references you wish to export.
 4. Go to "References", "Export".
 5. At "Select an export format", choose your style:
   * For RIS format, choose "Bibliographic Software";
-  * For BibTeX format, choose "BibTeX - RefWorks ID" (See section below on "Using the BibTeX format").
+  * For BibTeX format, choose "BibTeX - RefWorks ID" (See the [Using the BibTeX Format](#user-content-using-the-bibtex-format) section below).
 6. Click "Export References", and the data file will be downloaded.
 7. Move the exported file to your application's *public/data* directory. Rename it if you wish.
 
-#### Using the BibTeX format
+#### Using the BibTeX Format
 
 The EndNote "BibTeX Export" style does not by default include author affiliation information, which is critical for generating geolocation-based visualization graphs. You can modify the "BibTeX Export" style to include the author affiliation information. Here is how:
 
