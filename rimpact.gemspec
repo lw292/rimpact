@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Rimpact parses bibliographic data in various formats and generates d3.js based visualization graphs."
   s.description = "Rimpact allows your Ruby on Rails application to parse bibliographic data in various formats and generate d3.js based visualization graphs."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_runtime_dependency "gnlookup"
   s.add_runtime_dependency "ref_parsers"
