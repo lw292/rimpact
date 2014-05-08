@@ -1,28 +1,28 @@
 # Rimpact
 
-* [Description](#description)
-* [Configuring your Rails application](#configuring-your-rails-application)
-* [Acquiring Reference Data](#acquiring-reference-data)
-  * [From Scopus](#from-scopus)
-  * [From EndNote](#from-endnote)
-  * [From RefWorks](#from-refworks)
-  * [Using the BibTeX Format](#using-the-bibtex-format)
-* [Cleaning Reference Data](#cleaning-reference-data)
-  * [Ambiguous Author Names](#ambiguous-author-names)
-  * [Inconsistent Author Names](#inconsistent-author-names)
-  * [Ambiguous Place Names](#ambiguous-place-names)
-  * [Inconsistent Place Names](#inconsistent-place-names)
-  * [Multi-valued Fields](#multi-valued-fields)
-  * [Duplicate References](#duplicate-references)
-* [Tranforming and Visualizing Reference Data](#transforming-and-visualizing-reference-data)
-  * [The Authors Recipe](#the-authors-recipe)
-  * [The Geo Recipe](#the-geo-recipe)
-    * [Setting up Gnlookup](#setting-up-gnlookup)
-	* [Getting Map Data](#getting-map-data)
-	* [Using the Geo Recipe](#using-the-geo-recipe)
-	* [Ambiguous US Cities](#ambiguous-us-cities)
-  * [Creating Custom Recipes](#creating-custom-recipes)
-* [License](#license)
+* [Description](#user-content-description)
+* [Configuring your Rails application](#user-content-configuring-your-rails-application)
+* [Acquiring Reference Data](#user-content-acquiring-reference-data)
+  * [From Scopus](#user-content-from-scopus)
+  * [From EndNote](#user-content-from-endnote)
+  * [From RefWorks](#user-content-from-refworks)
+  * [Using the BibTeX Format](#user-content-using-the-bibtex-format)
+* [Cleaning Reference Data](#user-content-cleaning-reference-data)
+  * [Ambiguous Author Names](#user-content-ambiguous-author-names)
+  * [Inconsistent Author Names](#user-content-inconsistent-author-names)
+  * [Ambiguous Place Names](#user-content-ambiguous-place-names)
+  * [Inconsistent Place Names](#user-content-inconsistent-place-names)
+  * [Multi-valued Fields](#user-content-multi-valued-fields)
+  * [Duplicate References](#user-content-duplicate-references)
+* [Tranforming and Visualizing Reference Data](#user-content-transforming-and-visualizing-reference-data)
+  * [The Authors Recipe](#user-content-the-authors-recipe)
+  * [The Geo Recipe](#user-content-the-geo-recipe)
+    * [Setting up Gnlookup](#user-content-setting-up-gnlookup)
+	* [Getting Map Data](#user-content-getting-map-data)
+	* [Using the Geo Recipe](#user-content-using-the-geo-recipe)
+	* [Ambiguous US Cities](#user-content-ambiguous-us-cities)
+  * [Creating Custom Recipes](#user-content-creating-custom-recipes)
+* [License](#user-content-license)
 
 ## Description
 
@@ -72,7 +72,7 @@ This will create the following empty directories and files (if they do not alrea
 
 ## Acquiring Reference Data
 
-Rimpact works with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the [Cleaning Reference Data](#cleaning-reference-data) section below) and then re-export to one of the supported formats (BibTeX, RIS, or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370)).
+Rimpact works with reference data directedly exported from [Scopus](http://www.scopus.com/) in the [BibTeX](http://en.wikipedia.org/wiki/BibTeX) and [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)) formats. For most other bibliographic databases, such as PubMed, the OvidSP databases, the Web of Knowledge databases, or if you are using data retrieved from more than one databases, it is recommended that you first export data to a citation management application, such as EndNote or RefWorks. You can then use these applications to clean the data (see the [Cleaning Reference Data](#user-content-cleaning-reference-data) section below) and then re-export to one of the supported formats (BibTeX, RIS, or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370)).
 
 #### From Scopus
 
@@ -88,14 +88,14 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 #### From EndNote
 
 1. Run your search in your favorite databases, and export references to EndNote. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_6_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_8/). Please refer to the documentation of your database for instructions on how to export to EndNote.
-2. Clean the references in EndNote. See the [Cleaning Reference Data](#cleaning-reference-data) section below.
+2. Clean the references in EndNote. See the [Cleaning Reference Data](#user-content-cleaning-reference-data) section below.
 3. Select the references you wish to export.
 4. Go to "File", "Export".
 5. Navigate to a location where you wish to save the exported file, and choose a file name.
 6. In Output Style drop-down, choose your style:
   * For RIS format, choose "RefMan (RIS) Export";
   * For EndNote Export format, choose "EndNote Export";
-  * For BibTeX format, choose "BibTeX Export" (See the [Using the BibTeX Format](#using-the-bibtex-format) section below);
+  * For BibTeX format, choose "BibTeX Export" (See the [Using the BibTeX Format](#user-content-using-the-bibtex-format) section below);
   * If the style you need is not available in the dropdown, find it using "Select Another Style".
 7. Click "Save".
 8. Move the exported file to your application's *public/data* directory. Rename it if you wish.
@@ -103,12 +103,12 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 #### From RefWorks
 
 1. Run your search in your favorite databases, and export references to RefWorks. See instructions for some databases here: [PubMed](http://library.medicine.yale.edu/guides/screencasts/endnote_tt/pubmed_export/), [OvidSP](http://library.medicine.yale.edu/guides/screencasts/ovidsp/ovidsp_7_new/), and [CINAHL](http://library.medicine.yale.edu/guides/screencasts/cinahl/new_cinahl_7/). Please refer to the documentation of your database for instructions on how to export to RefWorks.
-2. Clean the references in RefWorks. See the [Cleaning Reference Data](#cleaning-reference-data) section below.
+2. Clean the references in RefWorks. See the [Cleaning Reference Data](#user-content-cleaning-reference-data) section below.
 3. Select the references you wish to export.
 4. Go to "References", "Export".
 5. At "Select an export format", choose your style:
   * For RIS format, choose "Bibliographic Software";
-  * For BibTeX format, choose "BibTeX - RefWorks ID" (See the [Using the BibTeX Format](#using-the-bibtex-format) section below).
+  * For BibTeX format, choose "BibTeX - RefWorks ID" (See the [Using the BibTeX Format](#user-content-using-the-bibtex-format) section below).
 6. Click "Export References", and the data file will be downloaded.
 7. Move the exported file to your application's *public/data* directory. Rename it if you wish.
 
@@ -253,7 +253,7 @@ Again the directory is a self contained system. You can drop it on to any web se
 
 ###### Ambiguous US Cities
 
-As mentioned above in the [Cleaning Reference Data](#cleaning-reference-data) section, place name ambiguity occurs if there are missing parts in the address. For example, "New Haven, United States" could be any one of these:
+As mentioned above in the [Cleaning Reference Data](#user-content-cleaning-reference-data) section, place name ambiguity occurs if there are missing parts in the address. For example, "New Haven, United States" could be any one of these:
 
     New Haven, Connecticut, United States
     New Haven, Indiana, United States
