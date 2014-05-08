@@ -1,6 +1,6 @@
 # Rimpact
 
-* [Description](#description)
+* [Description](#user-content-description)
 * [Configuring your Rails application](#configuring)
 * [Acquiring Reference Data](#acquiring)
   * [From Scopus](#scopus)
@@ -24,7 +24,6 @@
   * [Creating Custom Recipes](#custom_recipes)
 * [License](#license)
 
-<a name="description" />
 ## Description
 
 Rimpact allows your Ruby on Rails application to parse bibliographic data in [BibTeX](http://en.wikipedia.org/wiki/BibTeX),  [RIS](http://en.wikipedia.org/wiki/RIS_(file_format)), or [EndNote Export](http://wiki.cns.iu.edu/pages/viewpage.action?pageId=1933370) formats and generate [d3.js](http://d3js.org/) based visualization graphs.
