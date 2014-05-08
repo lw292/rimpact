@@ -7,13 +7,13 @@
   * [From EndNote](#user-content-from-endnote)
   * [From RefWorks](#user-content-from-refworks)
   * [Using the BibTeX format](#user-content-using-the-bibtex-format)
-* [Cleaning Reference Data](#user-cleaning-reference-data)
+* [Cleaning Reference Data](#user-content-cleaning-reference-data)
   * [Ambiguous Author Names](#user-content-ambiguous-author-names)
   * [Inconsistent Author Names](#user-content-inconsistent-author-names)
   * [Ambiguous Place Names](#user-content-ambiguous-place-names)
   * [Inconsistent Place Names](#user-content-inconsistent-place-names)
   * [Multi-valued Fields](#user-content-multi-valued-fields)
-  * [Duplicate References](#user-content-duplicate_references)
+  * [Duplicate References](#user-content-duplicate-references)
 * [Tranforming and Visualizing Reference Data](#user-content-transforming-and-visualizing-reference-data)
   * [The Authors Recipe](#user-content-the-authors-recipe)
   * [The Geo Recipe](#user-content-the-geo-recipe)
@@ -21,7 +21,7 @@
 	* [Getting Map Data](#user-content-getting-map-data)
 	* [Using the Geo Recipe](#user-content-using-the-geo-recipe)
 	* [Ambiguous US Cities](#user-content-ambiguous-us-cities)
-  * [Creating Custom Recipes](#user-content-custom-creating-custom-recipes)
+  * [Creating Custom Recipes](#user-content-creating-custom-recipes)
 * [License](#user-content-license)
 
 ## Description
@@ -108,7 +108,7 @@ Rimpact works with reference data directedly exported from [Scopus](http://www.s
 4. Go to "References", "Export".
 5. At "Select an export format", choose your style:
   * For RIS format, choose "Bibliographic Software";
-  * For BibTeX format, choose "BibTeX - RefWorks ID".
+  * For BibTeX format, choose "BibTeX - RefWorks ID" (See section below on "Using the BibTeX format").
 6. Click "Export References", and the data file will be downloaded.
 7. Move the exported file to your application's *public/data* directory. Rename it if you wish.
 
