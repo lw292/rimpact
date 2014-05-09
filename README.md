@@ -8,13 +8,15 @@
   * [From RefWorks](#user-content-from-refworks)
   * [Using the BibTeX Format](#user-content-using-the-bibtex-format)
 * [Cleaning Reference Data](#user-content-cleaning-reference-data)
-  * [Ambiguous Author Names](#user-content-ambiguous-author-names)
-  * [Inconsistent Author Names](#user-content-inconsistent-author-names)
-  * [Ambiguous Place Names](#user-content-ambiguous-place-names)
-  * [Inconsistent Place Names](#user-content-inconsistent-place-names)
-  * [Multi-valued Fields](#user-content-multi-valued-fields)
-  * [Duplicate References](#user-content-duplicate-references)
-* [Tranforming and Visualizing Reference Data](#user-content-transforming-and-visualizing-reference-data)
+  * ["Find and Replace" in EndNote or RefWorks](#user-content-find-and-replace-in-endnote-or-refworks)
+  * [Common Problems](#user-content-common-problems)
+    * [Ambiguous Author Names](#user-content-ambiguous-author-names)
+    * [Inconsistent Author Names](#user-content-inconsistent-author-names)
+    * [Ambiguous Place Names](#user-content-ambiguous-place-names)
+    * [Inconsistent Place Names](#user-content-inconsistent-place-names)
+    * [Multi-valued Fields](#user-content-multi-valued-fields)
+    * [Duplicate References](#user-content-duplicate-references)
+* [Transforming and Visualizing Reference Data](#user-content-transforming-and-visualizing-reference-data)
   * [The Authors Recipe](#user-content-the-authors-recipe)
   * [The Geo Recipe](#user-content-the-geo-recipe)
     * [Setting up Gnlookup](#user-content-setting-up-gnlookup)
@@ -131,21 +133,27 @@ If your exported BibTeX records have missing or duplicate keys, you can use the 
 
 ## Cleaning Reference Data
 
-Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean the data before generating the visualization. EndNote and RefWorks have the very useful "Find and Replace" funtion, which can help you batch modify your data:
+Your visualization is only as good as the accuracy of the reference data it is based on. The reference data you download from online databases is unfortunately very likely to contain ambiguities, inconsistencies, and sometimes even errors. You should use applications such as EndNote, RefWorks, or any editing tool you are comfortable with, to clean the data before generating the visualization. The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication.
+
+#### "Find and Replace" in EndNote or RefWorks
+
+EndNote and RefWorks have the very useful "Find and Replace" funtion, which can help you batch modify your data:
 
   * In EndNote, go to "Edit", and choose "Find and Replace".
   * In RefWorks, click on the "Global Edit" icon, and expand the "Replace" section in the popup box.
 
-The cleaning process usually involves disambiguation, resolving inconsistencies, error checking, and deduplication. Here are some common problems to pay attention to when you are trying to clean your data:
+#### Common Problems
 
-#### Ambiguous Author Names
+Here are some common problems to pay attention to when you are trying to clean your data:
+
+##### Ambiguous Author Names
 
 Are there more than one authors that have the same name? For example:
 
     Shepherd, G # The senior
     Shepherd, G # The junior
-	
-#### Inconsistent Author Names
+
+##### Inconsistent Author Names
 
 Are there authors that have more than one names in your data? For example:
 
@@ -154,25 +162,25 @@ Are there authors that have more than one names in your data? For example:
     Smith, John # Last name with first name spelled out
     Smith, John D # Last name with first name spelled out and middle initial
     Smith, John David # Last name with both first and middle names spelled out
-    
+
     Grossetta, Holly # Maiden name
     Nardini, Holly Grossetta # Name changed after marriage
 
-#### Ambiguous Place Names
+##### Ambiguous Place Names
 
 Are there addresses that refer to more than one places in the world? For example:
 
     London # Could be "London, England, United Kingdom" or "London, Ontario, Canana"
     New Haven, United States # Could be "New Haven, Michigan, United States" or "New Haven, Connecticut, United States"
 
-#### Inconsistent Place Names
+##### Inconsistent Place Names
 
 Are there places that have more than one names in your data? For example:
 
     CT, ct, Conn., Connecticut
     USA, U.S.A., United States, United States of America, US, U.S.
 
-#### Multi-valued Fields
+##### Multi-valued Fields
 
 Rimpact will recognize common value delimiters in multi-valued fields, such as semicolons(;) and new line characters. Your data may use a different delimiter character, such as the pipe character (|):
 
@@ -181,7 +189,7 @@ Rimpact will recognize common value delimiters in multi-valued fields, such as s
 
 In that case, you can either change your data (using a program such as EndNote) so that values in multi-valued fields are delimited by semicolons or new line characters, or you can change your code so that it will accomodate these special delimiter characters.
 
-#### Duplicate References
+##### Duplicate References
 
 If you obtain your references from different sources, there will likely be duplicates in your data. You should try your best to remove the duplicates so that your visualization is as accurate as it can be. Citation management programs such as EndNote and RefWorks have "Find Duplicates" features:
 
@@ -222,18 +230,18 @@ The directory is a self contained system. You can drop it on to any web server, 
 
 The *geo* recipe generates graphs of geographical collaboration networks.
 
-###### Setting Up Gnlookup
+##### Setting Up Gnlookup
 
 The *geo* recipe relies on a service from which latitudes and longitudes of cities can be retrieved. The Gnlookup gem will provide that service. Please follow [this guide](https://github.com/lw292/gnlookup) to set it up for your Rails application.
 
-###### Getting Map Data
+##### Getting Map Data
 
 In order for the browser to display maps, you will need the map shape data for the United States and the world in [geojson format](http://en.wikipedia.org/wiki/GeoJSON). Please follow [this guide](http://chimera.labs.oreilly.com/books/1230000000345/ch12.html#_acquiring_and_parsing_geodata) to generate these data files and place them in the *public/external* directory. You should end up having these files:
 
     public/external/geo/us.json
     public/external/geo/world.json
 
-###### Using the Geo Recipe
+##### Using the Geo Recipe
 
 To create a graph of geographical collaboration networks from the data, run:
 
@@ -251,7 +259,7 @@ Again the directory is a self contained system. You can drop it on to any web se
 
     http://your_rails_server_root_url/results/your_project_name/geo/index.html
 
-###### Ambiguous US Cities
+##### Ambiguous US Cities
 
 As mentioned above in the [Cleaning Reference Data](#user-content-cleaning-reference-data) section, place name ambiguity occurs if there are missing parts in the address. For example, "New Haven, United States" could be any one of these:
 
