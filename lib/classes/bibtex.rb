@@ -36,9 +36,9 @@ class BibTeX::Entry
   end
   def times_cited
     if self.has_field?('note')
-      regex = /[Cited By :|Times Cited: ](\d+)/
-      if !regex.match(self.note.to_s).nil? && !regex.match(self.note.to_s)[1].nil?
-        regex.match(self.note.to_s)[1].to_i
+      regex = /(Cited By :|Times Cited: )(\d+)/
+      if !regex.match(self.note.to_s).nil?
+        regex.match(self.note.to_s)[2].to_i
       else
         0
       end

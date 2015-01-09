@@ -3,6 +3,7 @@ namespace :rimpact do
     desc "Calculating H-indices from articles of the same author."
     task :calculate => :environment do
       require 'fileutils'
+      require 'csv'
       require 'io/console'
       current_dir = File.dirname(File.expand_path(__FILE__))
       Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
@@ -57,15 +58,35 @@ namespace :rimpact do
         end
       end
 
-      puts "h-Index is: "+@hindex.to_s
-      puts "Normalized h-Index is: "+@normalized_hindex.to_s
-      puts "m-Index is: "+(@hindex/(years.last.to_f-years.first.to_f)).round(2).to_s
-      puts "Normalized m-Index is: "+(@normalized_hindex/(years_without_first.last.to_f-years_without_first.first.to_f)).round(2).to_s
-      puts "Total citation count is: "+total_citations.to_s
-      puts "Normalized total citation count is: "+total_citations_without_first.to_s
-      puts "Average citation count is: "+(total_citations.to_f/references.count).round(2).to_s
-      puts "Normalized average citation count is: "+(total_citations_without_first.to_f/references_without_first.count).round(2).to_s
-      puts "Date of second publication is: "+references_by_year[1].year
+      CSV.open("public/results.csv", 'w') do |csv|
+        csv << [
+          "name",
+          "h-index", 
+          "normalized h-index", 
+          "m-index", 
+          "normalized m-index", 
+          "average citation count", 
+          "normalized average citation count", 
+          "date of second publication"]
+        csv << [
+          File.basename(file, File.extname(file)),
+          @hindex, 
+          @normalized_hindex, 
+          (@hindex/(years.last.to_f-years.first.to_f)).round(2), 
+          (@normalized_hindex/(years_without_first.last.to_f-years_without_first.first.to_f)).round(2), 
+          (total_citations.to_f/references.count).round(2), (total_citations_without_first.to_f/references_without_first.count).round(2), 
+          references_by_year[1].year]
+      end
+      
+      # puts "h-Index is: "+@hindex.to_s
+      # puts "Normalized h-Index is: "+@normalized_hindex.to_s
+      # puts "m-Index is: "+(@hindex/(years.last.to_f-years.first.to_f)).round(2).to_s
+      # puts "Normalized m-Index is: "+(@normalized_hindex/(years_without_first.last.to_f-years_without_first.first.to_f)).round(2).to_s
+      # puts "Total citation count is: "+total_citations.to_s
+      # puts "Normalized total citation count is: "+total_citations_without_first.to_s
+      # puts "Average citation count is: "+(total_citations.to_f/references.count).round(2).to_s
+      # puts "Normalized average citation count is: "+(total_citations_without_first.to_f/references_without_first.count).round(2).to_s
+      # puts "Date of second publication is: "+references_by_year[1].year
     end
   end
 end
