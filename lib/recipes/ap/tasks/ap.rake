@@ -61,7 +61,8 @@ namespace :rimpact do
       puts "Normalized h-Index is: "+@normalized_hindex.to_s
       puts "m-Index is: "+(@hindex/(years.last.to_f-years.first.to_f)).round(2).to_s
       puts "Normalized m-Index is: "+(@normalized_hindex/(years_without_first.last.to_f-years_without_first.first.to_f)).round(2).to_s
-      # puts "Total citation count is: "+total_citations.to_s
+      puts "Total citation count is: "+total_citations.to_s
+      puts "Normalized total citation count is: "+total_citations_without_first.to_s
       puts "Average citation count is: "+(total_citations.to_f/references.count).round(2).to_s
       puts "Normalized average citation count is: "+(total_citations_without_first.to_f/references_without_first.count).round(2).to_s
       puts "Date of second publication is: "+references_by_year[1].year
