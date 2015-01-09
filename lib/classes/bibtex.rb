@@ -34,4 +34,15 @@ class BibTeX::Entry
     end
     return aos
   end
+  def times_cited
+    if self.has_field?('note')
+      if !/Cited By :(\d+)/.match(self.note.to_s).nil? && !/Cited By :(\d+)/.match(self.note.to_s)[1].nil?
+        /Cited By :(\d+)/.match(self.note.to_s)[1].to_i
+      else
+        0
+      end
+    else
+      0
+    end
+  end
 end

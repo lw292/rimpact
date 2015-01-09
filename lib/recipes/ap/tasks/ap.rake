@@ -1,68 +1,70 @@
 namespace :rimpact do
   namespace :ap do
-    desc "Crunching data for a specific author."
-    task :create => :environment do
+    desc "Calculating H-indices from articles of the same author."
+    task :calculate => :environment do
       require 'fileutils'
-      require 'csv'
-      require 'erb'
       require 'io/console'
       current_dir = File.dirname(File.expand_path(__FILE__))
       Dir.glob(current_dir+"/../../../classes/*.rb").each {|f| require f}
       Dir.glob(current_dir+"/../classes/*.rb").each {|f| require f}
-    
-      # Getting user input
-      file_type = ""
-      while file_type != 'ris' && file_type != 'bibtex' && file_type != 'endnote'
-        puts "Only RIS, EndNote Export, or BibTeX files are supported."
-        STDOUT.print "Where is the data file? [public/data/data.ris]:"
-        file = STDIN.gets.chomp
-        file = 'public/data/data.ris' if file.empty?
-        file_extname = File.extname(file)
-        case file_extname
-        when ".bib"
-          file_type = "bibtex"
-        when ".ris"
-          file_type = "ris"
-        when ".enw"
-          file_type = "endnote"
-        else
-          STDOUT.print "What is the file type (must be ris, bibtex, or endnote)? [ris]:"
-          file_type = STDIN.gets.chomp
-          file_type = 'ris' if file_type.empty?
-        end 
+      
+      puts "Only BibTeX files are supported."
+      STDOUT.print "Where is the data file? [public/data/data.bib]:"
+      file = STDIN.gets.chomp
+      file = 'public/data/data.bib' if file.empty?
+
+      references = BibTeX.open(file, :strip => true)
+      references_by_times_cited = references.sort_by { |reference| reference.times_cited }.reverse!
+      references_by_year = references.sort_by { |reference| reference.year }
+
+      references_without_first = references_by_year.clone
+      references_without_first.shift
+      
+      references_without_first_by_times_cited = references_without_first.sort_by { |reference| reference.times_cited }.reverse!
+      
+      years=[]
+      total_citations = 0
+      references.each do |reference|
+        if !reference.year.blank? && !years.include?(reference.year)
+          years << reference.year
+        end
+        total_citations += reference.times_cited
       end
       
-      STDOUT.print "Where to save the generated files? [public/results/jsmith]:"
-      uniqname = STDIN.gets.chomp
-      uniqname = 'public/results/jsmith' if uniqname.empty?
-      if !File.directory?(uniqname)
-        Dir.mkdir(uniqname)
-      end
-      if !File.directory?(uniqname+"/authors")
-        Dir.mkdir(uniqname+"/authors")
+      years_without_first = []
+      total_citations_without_first = 0
+      references_without_first.each do |reference|
+        if !reference.year.blank? && !years_without_first.include?(reference.year)
+          years_without_first << reference.year
+        end
+        total_citations_without_first += reference.times_cited
       end
       
-      STDOUT.print "Whom is this data for? [John Smith]:"
-      who = STDIN.gets.chomp
-      who = 'John Smith' if who.empty?
-    
-      # Parse the raw data file into reference objects
-      case file_type
-      when "ris"
-        all_references = RefParsers::RISParser.new.open(file)
-      when "endnote"
-        all_references = RefParsers::EndNoteParser.new.open(file)
-      when "bibtex"
-        all_references = BibTeX.open(file, :strip => false)
+      years.sort!
+      years_without_first.sort!
+      
+      references_by_times_cited.each_with_index do |reference,index|
+        if index+1 >= reference.times_cited 
+          @hindex = index
+          break
+        end
+      end
+      
+      references_without_first_by_times_cited.each_with_index do |reference,index|
+        if index+1 >= reference.times_cited 
+          @normalized_hindex = index
+          break
+        end
       end
 
-      # Sorting records into year buckets
-      # references_by_year = Hash.new
-      # all_references.each do |r|
-      #   year = r.year
-      #   references_by_year[year] = [] if references_by_year[year].nil?
-      #   references_by_year[year] << r
-      # end
+      puts "h-Index is: "+@hindex.to_s
+      puts "Normalized h-Index is: "+@normalized_hindex.to_s
+      puts "m-Index is: "+(@hindex/(years.last.to_f-years.first.to_f)).round(2).to_s
+      puts "Normalized m-Index is: "+(@normalized_hindex/(years_without_first.last.to_f-years_without_first.first.to_f)).round(2).to_s
+      # puts "Total citation count is: "+total_citations.to_s
+      puts "Average citation count is: "+(total_citations.to_f/references.count).round(2).to_s
+      puts "Normalized average citation count is: "+(total_citations_without_first.to_f/references_without_first.count).round(2).to_s
+      puts "Date of second publication is: "+references_by_year[1].year
     end
   end
 end
