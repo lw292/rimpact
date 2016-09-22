@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Collaboration Network Analysis for <%= who %></title>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<style>
+div#main {
+	margin-left: 9px;
+}
+div.containers {
+	margin-bottom: 32px;
+}
+svg {
+	border: 1px solid #ccc;
+}
+svg#fdg line.link {
+	stroke: black;
+}
+svg#fdg text {
+	font-weight: 200;
+}
+.navbar {
+	border-radius: 0;
+	border: none;
+}
+</style>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Collaboration Network Analysis for <%= who %></a>
+  </div>
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="../authors/"><span class="glyphicon glyphicon-user"></span> Authors</a></li>
+      <li><a href="../geo/"><span class="glyphicon glyphicon-map-marker"></span> Geographical</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="main">
+	
+	<div id="fdg_container" class="containers">
+	  <h4 id="fdg_title">Force-Directed Graph for &nbsp;
+	    <select id="years">
+	      <% all_years.each do |year| %>
+	        <% if years.include? year %>
+	          <option value="<%= year %>"><%= year %></option>
+	        <% else %>
+	          <option value="<%= year %>" disabled><%= year %> (data set too big to display)</option>
+	        <% end %>
+	      <% end %>
+	    </select>
+	  </h4>
+	  
+  	<div class="controls">
+  		<input type="checkbox" id="author_links" checked> <label>Show Links</label>
+  		<input type="checkbox" id="author_names"> <label>Show Names</label>
+  	</div>
+	</div>
+
+</div>
+<script>
+$( document ).ready(function() {
+	$("select#years").change(function(){
+		$("svg#fdg").remove();
+		dataset = $(this).val();
+		drawGraph(dataset);
+	});
+	drawGraph(<%= years.first %>);
+});
+	
+function drawGraph(dataset) {
+
+  // Window size
+  var w = window.innerWidth,
+    h = window.innerHeight;
+
+  var edgeColor = function(value){
+    return "#ccc";
+  }
+  var nodeStrokeColor = function(value){
+    return "#ccc";
+  }
+  var nodeFillColor = d3.scale.category20();
+
+
+  // Force properties
+  var force = d3.layout.force()
+    .linkDistance(40)
+    .charge(-400)
+    .size([w, h]);
+
+  // Create the SVG
+  var svg = d3.select("body").append("svg").attr('id', 'fdg').style("cursor", "move");
+
+  // Append a group to the SVG
+  var g = svg.append("g");
+
+  // Read the dataset
+  d3.json(dataset + ".json", function(error, graph) {
+
+    // Connection array
+    var linkedByIndex = {};
+    graph.links.forEach(function(d) {
+      linkedByIndex[d.source + "," + d.target] = true;
+    });
+    function isConnected(a, b) {
+      return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+    }
+    function hasConnections(a) {
+      for (var property in linkedByIndex) {
+        s = property.split(",");
+        if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property])
+          return true;
+      }
+      return false;
+    }
+
+    // Start the force graph
+    force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+    // The edges
+    var link = g.selectAll(".link")
+      .data(graph.links)
+      .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return d.value*2; }) // Edge width
+      .style("stroke", function(d) { return edgeColor(d.group); }); // Edge color
+
+    // The nodes
+    var node_stick = false;
+    var drag;
+    if (!node_stick) {
+      drag = force.drag();
+    } else {
+      function dragstart(d) {
+        d3.select(this).classed("fixed", d.fixed = true);
+      }
+      drag = force.drag().on("dragstart", dragstart);
+    }
+    var node = g.selectAll(".node")
+      .data(graph.nodes)
+      .enter().append("g")
+      .attr("class", "node")
+      .call(drag);
+    var circle = node.append("circle")
+      .attr("r", function(d) { return +d.group*5; }) // Node size
+      .style("stroke", function(d) { return nodeStrokeColor(d.group); }) // Node stroke color
+      .style("fill", function(d) { return nodeFillColor(d.group); }); // Node fill color
+
+
+
+    // The texts
+    var text = g.selectAll(".text")
+      .data(graph.nodes)
+      .enter().append("text")
+      .style("font-size", function(d) { return +d.group*3; }) // Text size
+      .text(function(d) { return d.name + " (" + d.group + ")"; }); // Text content
+    // Text placement and text content
+    var text_center = false;
+    if (text_center)
+      text.style("text-anchor", "middle");
+    else
+      text.attr("dx", function(d) { return +d.group; });
+
+    // Zoom events
+    var min_zoom = 0.1;
+    var max_zoom = 7;
+    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]);
+    node.on("dblclick.zoom", function(d) {
+      d3.event.stopPropagation();
+      var dcx = (window.innerWidth / 2 - d.x * zoom.scale());
+      var dcy = (window.innerHeight / 2 - d.y * zoom.scale());
+      zoom.translate([dcx, dcy]);
+      g.attr("transform", "translate(" + dcx + "," + dcy + ")scale(" + zoom.scale() + ")");
+    });
+    zoom.on("zoom", function() {
+      g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    });
+    svg.call(zoom);
+
+    // Highlight events
+    var focus_node = null,
+      highlight_node = null;
+    var highlight_color = "blue",
+      highlight_trans = 0.1;
+    node.on("mouseover", function(d) {
+        set_highlight(d);
+      })
+      .on("mousedown", function(d) {
+        d3.event.stopPropagation();
+        focus_node = d;
+        set_focus(d);
+        if (highlight_node === null)
+          set_highlight(d)
+      })
+      .on("mouseout", function(d) {
+        exit_highlight();
+      });
+    d3.select(window).on("mouseup", function() {
+      if (focus_node !== null) {
+        focus_node = null;
+        if (highlight_trans < 1) {
+          circle.style("opacity", 1);
+          text.style("opacity", 1);
+          link.style("opacity", 1);
+        }
+      }
+      if (highlight_node === null)
+        exit_highlight();
+    });
+    function exit_highlight() {
+      highlight_node = null;
+      if (focus_node === null) {
+        svg.style("cursor", "move");
+        circle.style("stroke", function(o) { return nodeStrokeColor(o.group); });
+        text.style("font-weight", "normal");
+        link.style("stroke", function(o) { return edgeColor(o.value); });
+      }
+    }
+    function set_focus(d) {
+      if (highlight_trans < 1) {
+        circle.style("opacity", function(o) {
+          return isConnected(d, o) ? 1 : highlight_trans;
+        });
+        text.style("opacity", function(o) {
+          return isConnected(d, o) ? 1 : highlight_trans;
+        });
+        link.style("opacity", function(o) {
+          return o.source.index == d.index || o.target.index == d.index ? 1 : highlight_trans;
+        });
+      }
+    }
+    function set_highlight(d) {
+      svg.style("cursor", "pointer");
+      if (focus_node !== null) d = focus_node;
+      highlight_node = d;
+
+      if (highlight_color != "white") {
+        circle.style("stroke", function(o) {
+          return isConnected(d, o) ? highlight_color : nodeFillColor(o.group);
+        });
+        text.style("font-weight", function(o) {
+          return isConnected(d, o) ? "bold" : "normal";
+        });
+        link.style("stroke", function(o) {
+          return o.source.index == d.index || o.target.index == d.index ? highlight_color : edgeColor(o.value);
+        });
+      }
+    }
+
+    // Resize events
+    resize();
+    function resize() {
+      var width = window.innerWidth,
+        height = window.innerHeight;
+      svg.attr("width", width).attr("height", height);
+      force.size([force.size()[0] + (width - w) / zoom.scale(), force.size()[1] + (height - h) / zoom.scale()]).resume();
+      w = width;
+      h = height;
+    }
+    d3.select(window).on("resize", resize);
+
+    // Tick events
+    force.on("tick", function() {
+      node.attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+      text.attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+      link.attr("x1", function(d) {
+          return d.source.x;
+        })
+        .attr("y1", function(d) {
+          return d.source.y;
+        })
+        .attr("x2", function(d) {
+          return d.target.x;
+        })
+        .attr("y2", function(d) {
+          return d.target.y;
+        });
+      node.attr("cx", function(d) {
+          return d.x;
+        })
+        .attr("cy", function(d) {
+          return d.y;
+        });
+    });
+
+  });
+
+}
+</script>
+</body>
+</html>

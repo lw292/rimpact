@@ -144,7 +144,7 @@ namespace :rimpact do
         years.sort!
 
         # Generating html file ...
-        template = ERB.new(File.read(current_dir+"/../templates/authors.html.erb"))
+        template = ERB.new(File.read(current_dir+"/../templates/authors2.html.erb"))
         File.open(uniqname+"/authors/index.html", "w+") do |f|
           f << template.result(binding)
         end
