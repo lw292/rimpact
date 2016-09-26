@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <title>Collaboration Network Analysis for <%= who %></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/2.7.9/cytoscape.min.js"></script>
+    <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/1.3.8/cytoscape-cose-bilkent.js"></script>
+</head>
+<style>
+    #cy {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+</style>
+<body>
+<div id="controls">
+  <select id="years">
+    <% all_years.each do |year| %>
+      <% if years.include? year %>
+        <option value="<%= year %>"><%= year %></option>
+      <% else %>
+        <option value="<%= year %>" disabled><%= year %> (data set too big to display)</option>
+      <% end %>
+    <% end %>
+  </select>
+</div>
+    <div id="cy"></div>
+    <script>
+    $(document).ready(function(){
+
+      $("select#years").change(function(){
+        $("#cy").empty();
+        dataset = $(this).val();
+        drawGraph(dataset);
+      });
+      drawGraph(<%= years.first %>);
+    });
+
+    function drawGraph(dataset) {
+              $.ajax({
+            url: dataset+'.json',
+            dataType: 'json',
+            success: function(data){
+                var eles = [];
+                for(var key in data.nodes) {
+                     eles.push({data: data.nodes[key]}); 
+                }
+                for(var key in data.links) {
+                     eles.push({data: data.links[key]}); 
+                }
+                var cy = cytoscape({
+                  container: document.getElementById('cy'),
+                  elements: eles,
+                  layout: {
+                    name: "cose-bilkent",
+                    // Whether to fit the network view after when done
+                    fit: true,
+                    // Padding on fit
+                    padding: 20,
+                    // Whether to enable incremental mode
+                    randomize: true,
+                    // Node repulsion (non overlapping) multiplier
+                    nodeRepulsion: 4500,
+                    // Ideal edge (non nested) length
+                    idealEdgeLength: 50,
+                    // Divisor to compute edge forces
+                    edgeElasticity: 0.45,
+                    // Nesting factor (multiplier) to compute ideal edge length for nested edges
+                    nestingFactor: 0.1,
+                    // Gravity force (constant)
+                    gravity: 0.25,
+                    // Maximum number of iterations to perform
+                    numIter: 2500,
+                    // For enabling tiling
+                    tile: true,
+                    // Type of layout animation. The option set is {'during', 'end', false}
+                    animate: 'end',
+                    // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
+                    tilingPaddingVertical: 10,
+                    // Represents the amount of the horizontal space to put between the zero degree members during the tiling operation(can also be a function)
+                    tilingPaddingHorizontal: 10,
+                    // Gravity range (constant) for compounds
+                    gravityRangeCompound: 1.5,
+                    // Gravity force (constant) for compounds
+                    gravityCompound: 1.0,
+                    // Gravity range (constant)
+                    gravityRange: 3.8
+                  },
+                  style: [
+                    {
+                      selector: 'node',
+                      style: {
+                        shape: 'circle',
+                        width: function( ele ){ return ele.data('group')*5 },
+                        height: function( ele ){ return ele.data('group')*5 },
+                        'background-color': 'blue',
+                        label: function( ele ){ return ele.data('name') + " (" + ele.data('group') + ")" },
+                        'font-size': 5
+                      }
+                    },
+                    {
+                      selector: 'edge',
+                      style: {
+                        'width': function( ele ){ return ele.data('value')*2 },
+                        'line-color': '#ccc'
+                      }
+                    }
+                  ]      
+                });
+            }
+        });
+    }
+    </script>
+</body>
+</html>
