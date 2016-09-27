@@ -92,12 +92,13 @@
     <div id="cy"></div>
     <script>
     $(document).ready(function(){
-
       $("select#years").change(function(){
         $("#cy").empty();
         dataset = $(this).val();
+        $('#loading').show();
         drawGraph(dataset);
       });
+      $('#loading').show();
       drawGraph(<%= years.first %>);
     });
 
@@ -118,9 +119,6 @@
             elements: eles,
             layout: {
               name: "cose-bilkent",
-              ready: function(){
-                $('#loading').show();
-              },
               stop: function(){
                 $('#loading').hide();
               },
