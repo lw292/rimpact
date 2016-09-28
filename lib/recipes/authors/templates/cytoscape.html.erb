@@ -109,10 +109,14 @@
         success: function(data){
           var eles = [];
           for(var key in data.nodes) {
-            eles.push({data: data.nodes[key]}); 
+            var newNode = data.nodes[key];
+            newNode.value = newNode.group;
+            delete newNode.group;
+            eles.push({group: "nodes", data: newNode}); 
           }
           for(var key in data.links) {
-            eles.push({data: data.links[key]}); 
+            var newEdge = data.links[key];
+            eles.push({group: "edges", data: newEdge}); 
           }
           var cy = cytoscape({
             container: document.getElementById('cy'),
@@ -160,17 +164,17 @@
                 selector: 'node',
                 style: {
                   shape: 'circle',
-                  width: function( ele ){ return ele.data('group')*5 },
-                  height: function( ele ){ return ele.data('group')*5 },
+                  width: function( ele ){ return !ele.data('value') ? 0 : ele.data('value')*5 },
+                  height: function( ele ){ return !ele.data('value') ? 0 : ele.data('value')*5 },
                   'background-color': 'blue',
-                  label: function( ele ){ return ele.data('name') + " (" + ele.data('group') + ")" },
+                  label: function( ele ){ return !ele.data('name')||!ele.data('value') ? 'NULL' : ele.data('name') + ' (' + ele.data('value') + ')' },
                   'font-size': 5
                 }
               },
               {
                 selector: 'edge',
                 style: {
-                  'width': function( ele ){ return ele.data('value')*2 },
+                  width: function( ele ){ return !ele.data('value') ? 0 : ele.data('value')*2 },
                   'line-color': '#ccc'
                 }
               }
