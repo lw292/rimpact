@@ -64,6 +64,13 @@ namespace :rimpact do
         references_by_year[year] << r
       end
     
+      references_by_year_cumulative = Hash.new
+      bowl = []
+      references_by_year.sort.to_h.each do |year, references|
+        bowl += references
+        references_by_year_cumulative[year] = bowl
+      end
+
       skipped_count = 0
     
       # Looping through each year bucket
@@ -131,6 +138,75 @@ namespace :rimpact do
             json['links'] << {"source" => l[0], "target" => l[1], "value" => lcount}
           end
           File.open(uniqname+"/authors/"+year+".json","w") do |f|
+            f.write(json.to_json)
+          end
+        end
+
+      # Looping through each year bucket
+      references_by_year_cumulative.each do |year, references|
+          # Initializing node and link containers
+          nodes = []
+          links = []
+          # Reset counters
+          count = 0
+          author_count = 0
+          # Loop through each record
+          references.each do |reference|
+            # Get the authors from the record
+            authors = reference.authors
+            # If the number of authors is larger than ... 
+            # This is here only because my computer is not beefy enough ...
+            if authors.size < 100
+              # Reset containers
+              author_ids = []
+              author_links = []
+              # Loop through each author
+              authors.each do |value|
+                # If a node already exists for this author in this year's data
+                if nodes.any? {|n| n["name"] == value}
+                  # Locate that node
+                  node = nodes.find{|n| n["name"] == value}
+                  # Increment the count of the author by 1
+                  node["group"] += 1
+                  # Add the id of the author to the author id container for generating links
+                  author_ids << node["id"]
+                # Otherwise create a new node with a group count of 1
+                else
+                  nodes << {"name" => value, "group" => 1, "id" => author_count}
+                  # Add the id (equals the author count) of the author to the author id container for generating links
+                  author_ids << author_count
+                  # Increment the author count
+                  author_count += 1
+                end
+              end
+          
+              # Genearting links
+              author_ids.combination(2).to_a.each do |p|
+                author_links << p.sort
+              end
+              # Add the links to the big links array
+              links.concat(author_links)
+            else
+              skipped_count += 1
+            end
+          
+            # Counting progress
+            count += 1
+            if count%5 == 0
+              print "#"
+              $stdout.flush
+            end
+          end
+        
+          # Output to json
+          json = {
+            "nodes" => nodes,
+            "links" => []
+          }
+          Hash[links.group_by {|x| x}.map {|k,v| [k,v.count]}].each do |l, lcount|
+            json['links'] << {"source" => l[0], "target" => l[1], "value" => lcount}
+          end
+          File.open(uniqname+"/authors/"+year+"_cumulative.json","w") do |f|
             f.write(json.to_json)
           end
         end

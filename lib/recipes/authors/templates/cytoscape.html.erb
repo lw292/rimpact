@@ -76,6 +76,7 @@
     <% all_years.each do |year| %>
       <% if years.include? year %>
         <option value="<%= year %>"><%= year %></option>
+        <option value="<%= year+'_cumulative' %>"><%= year + ' cumulative' %></option>
       <% else %>
         <option value="<%= year %>" disabled><%= year %> (data set too big to display)</option>
       <% end %>
