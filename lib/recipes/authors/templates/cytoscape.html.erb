@@ -165,8 +165,8 @@
                 selector: 'node',
                 style: {
                   shape: 'circle',
-                  width: function( ele ){ return !ele.data('value') ? 0 : ele.data('value')*5 },
-                  height: function( ele ){ return !ele.data('value') ? 0 : ele.data('value')*5 },
+                  width: function( ele ){ return !ele.data('value') ? 0 : Math.sqrt(ele.data('value')*10) },
+                  height: function( ele ){ return !ele.data('value') ? 0 : Math.sqrt(ele.data('value')*10) },
                   'background-color': 'blue',
                   label: function( ele ){ return !ele.data('name')||!ele.data('value') ? 'NULL' : ele.data('name') + ' (' + ele.data('value') + ')' },
                   'font-size': 5
@@ -175,7 +175,7 @@
               {
                 selector: 'edge',
                 style: {
-                  width: function( ele ){ return !ele.data('value') ? 0 : ele.data('value')*2 },
+                  width: function( ele ){ return !ele.data('value') ? 0 : Math.sqrt(ele.data('value')*2) },
                   'line-color': '#ccc'
                 }
               }
